@@ -1,10 +1,10 @@
 === Loggedin - Limit Active Logins ===
 Contributors: joelcj91,duckdev
-Tags: active logins, loggedin, login, logout, limit active logins, login limit, concurrent logins
+Tags: login, logout, limit active logins, login limit, concurrent logins
 Donate link: https://paypal.me/JoelCJ
 Requires at least: 4.0
-Tested up to: 6.4
-Stable tag: 1.3.1
+Tested up to: 6.6
+Stable tag: 1.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -109,6 +109,7 @@ Yes, of course. But this time you are going to add few lines of code. Don't worr
 
 <pre lang="php">
 function loggedin_bypass_users( $bypass, $user_id ) {
+    
     // Enter the user IDs to bypass.
     $allowed_users = array( 1, 2, 3, 4, 5 );
 
@@ -122,16 +123,15 @@ Or if you want to bypass this for certain roles:
 
 <pre lang="php">
 function loggedin_bypass_roles( $prevent, $user_id ) {
+
     // Array of roles to bypass.
     $allowed_roles = array( 'administrator', 'editor' );
 
     $user = get_user_by( 'id', $user_id );
 
     $roles = ! empty( $user->roles ) ? $user->roles : array();
-    
-    $bypassed = array_intersect( $roles, $allowed_roles );
 
-    return ! empty( $bypassed );
+    return ! empty( array_intersect( $roles, $whitelist ) );
 }
 
 add_filter( 'loggedin_bypass', 'loggedin_bypass_roles', 10, 2 );
@@ -151,6 +151,12 @@ Bug reports are always welcome - [report here](https://duckdev.com/support/).
 
 
 == Changelog ==
+
+= 1.3.2 (01/10/2024) =
+
+**🐛 Bug Fixes**
+
+* Security fixes.
 
 = 1.3.1 (19/09/2020) =
 
@@ -197,8 +203,8 @@ Bug reports are always welcome - [report here](https://duckdev.com/support/).
 
 == Upgrade Notice ==
 
-= 1.3.1 (19/09/2020) =
+= 1.3.2 (01/10/2024) =
 
-**👌 Improvements**
+**🐛 Bug Fixes**
 
-* Support ajax logins.
+* Security fixes.
