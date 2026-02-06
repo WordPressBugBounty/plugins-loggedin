@@ -1,0 +1,58 @@
+{
+    "packages": [
+        {
+            "name": "duckdev/freemius-plugin-licensing",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/duckdev/freemius-plugin-licensing.git",
+                "reference": "f175fa2adbba8b30936142ba1cf4da97ce7b6f1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/duckdev/freemius-plugin-licensing/zipball/f175fa2adbba8b30936142ba1cf4da97ce7b6f1e",
+                "reference": "f175fa2adbba8b30936142ba1cf4da97ce7b6f1e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "time": "2025-11-08T17:53:24+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Joel James",
+                    "email": "me@joelsays.com",
+                    "homepage": "https://duckdev.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lite version of the Freemius SDK for managing plugin licensing and updates using Freemius APIs, specifically developed for use with Duck Dev plugins.",
+            "homepage": "https://github.com/duckdev/freemius-plugin-licensing",
+            "keywords": [
+                "freemius",
+                "licensing",
+                "plugins",
+                "updates"
+            ],
+            "support": {
+                "issues": "https://github.com/duckdev/freemius-plugin-licensing/issues",
+                "source": "https://github.com/duckdev/freemius-plugin-licensing/tree/1.0"
+            },
+            "install-path": "../duckdev/freemius-plugin-licensing"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
