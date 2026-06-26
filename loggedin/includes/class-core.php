@@ -1,288 +1,131 @@
 <?php
 /**
- * The main functionality of the plugin.
+ * Plugin bootstrap.
  *
- * @link       https://duckdev.com/products/loggedin-limit-active-logins/
- * @license    http://www.gnu.org/licenses/ GNU General Public License
- * @category   Core
- * @package    Loggedin
- * @subpackage Public
- * @author     Joel James <me@joelsays.com>
+ * `Core` is the singleton entry point invoked from `loggedin.php`.
+ * Its only job is to wire up each module in a predictable order so
+ * downstream modules can rely on their dependencies being available.
+ *
+ * Boot phases:
+ *   1. {@see common()} — Settings store + Upgrader. Always loaded so
+ *      REST and front-end requests can read settings.
+ *   2. {@see front()} — Session guard hooked into the auth pipeline.
+ *      Always loaded; front-of-site logins happen outside `is_admin()`.
+ *   3. {@see admin()} — wp-admin only: menu, page, asset enqueue.
+ *   4. {@see addons()} — Freemius wiring. Loaded everywhere; the
+ *      Freemius instances themselves are built lazily so non-admin
+ *      requests don't pay for them unless a REST endpoint asks.
+ *   5. {@see api()} — REST controllers. Always loaded; they only
+ *      register routes on `rest_api_init`.
+ *
+ * The `loggedin_init` action fires once boot completes so add-ons can
+ * register their own modules with the same lifecycle.
+ *
+ * @package DuckDev\Loggedin
  */
+
+declare( strict_types = 1 );
 
 namespace DuckDev\Loggedin;
 
-// If this file is called directly, abort.
+use DuckDev\Loggedin\Addons\Addons;
+use DuckDev\Loggedin\Admin\Admin;
+use DuckDev\Loggedin\Admin\Assets;
+use DuckDev\Loggedin\Api\Addons as Addons_Api;
+use DuckDev\Loggedin\Api\Sessions as Sessions_Api;
+use DuckDev\Loggedin\Api\Settings as Settings_Api;
+use DuckDev\Loggedin\Contracts\Singleton;
+use DuckDev\Loggedin\Front\Session_Guard;
+use DuckDev\Loggedin\Setup\Settings;
+use DuckDev\Loggedin\Setup\Upgrader;
+
 defined( 'WPINC' ) || die;
 
-use WP_Error;
-use WP_Session_Tokens;
-
 /**
- * Class Core.
+ * Plugin bootstrap — wires every module and fires the public boot action.
  *
- * @since 1.0.0
+ * @since 3.0.0
  */
-class Core {
+final class Core {
+
+	use Singleton;
 
 	/**
-	 * Initialize the class and set its properties.
+	 * Wire up every module and fire the public boot action.
 	 *
-	 * We register all our common hooks here.
-	 *
-	 * @since 1.0.0
+	 * @since 3.0.0
 	 *
 	 * @return void
 	 */
-	public function __construct() {
-		// Use authentication filter.
-		add_filter( 'wp_authenticate_user', array( $this, 'validate_block_logic' ) );
-		// Use password check filter.
-		add_filter( 'check_password', array( $this, 'validate_allow_logic' ), 10, 4 );
-	}
-
-	/**
-	 * Validate if the maximum active logins limit reached.
-	 *
-	 * This check happens only after authentication happens and
-	 * the login logic is "Allow".
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param boolean $check    User Object/WPError.
-	 * @param string  $password Plaintext user's password.
-	 * @param string  $hash     Hash of the user's password to check against.
-	 * @param int     $user_id  User ID.
-	 *
-	 * @return bool
-	 */
-	public function validate_allow_logic( $check, $password, $hash, $user_id ): bool {
-		// If the validation failed already, bail.
-		if ( ! $check ) {
-			return false;
-		}
-
-		// Get current logic.
-		$logic = get_option( 'loggedin_logic', 'allow' );
-
-		if ( in_array( $logic, array( 'allow', 'logout_oldest' ) ) ) {
-			// Continue only if limit reached.
-			if ( $this->has_limit_reached( $user_id ) ) {
-				if ( 'allow' === $logic ) {
-					// Destroy all others.
-					$this->destroy_all_sessions( $user_id );
-				} elseif ( 'logout_oldest' === $logic ) {
-					// Destroy oldest session.
-					$this->destroy_oldest_session( $user_id );
-				}
-			}
-		}
-
-		return true;
-	}
-
-
-	/**
-	 * Validate if the maximum active logins limit reached.
-	 *
-	 * This check happens only after authentication happens and
-	 * the login logic is "Block".
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param object $user User Object/WPError.
-	 *
-	 * @return object User object or error object.
-	 */
-	public function validate_block_logic( $user ) {
-		// If login validation failed already, return that error.
-		if ( is_wp_error( $user ) ) {
-			return $user;
-		}
-
-		$logic = get_option( 'loggedin_logic', 'allow' );
-
-		// Only when block method.
-		if ( 'block' === $logic ) {
-			// Check if limit exceed.
-			if ( $this->has_limit_reached( $user->ID ) ) {
-				/**
-				 * Action hook to trigger when a login is blocked by loggedin.
-				 *
-				 * @since 2.0.0
-				 *
-				 * @param int $user_id User ID.
-				 */
-				do_action( 'loggedin_login_blocked', $user->ID );
-
-				return new WP_Error( 'login_limit_reached', $this->limit_error_message() );
-			}
-		}
-
-		return $user;
-	}
-
-	/**
-	 * Destroy all sessions of the user.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $user_id User ID.
-	 *
-	 * @return void
-	 */
-	protected function destroy_all_sessions( $user_id ) {
-		// Destroy all sessions.
-		WP_Session_Tokens::get_instance( $user_id )->destroy_all();
+	protected function init(): void {
+		$this->common();
+		$this->front();
+		$this->admin();
+		$this->addons();
+		$this->api();
 
 		/**
-		 * Action hook to trigger when all login sessions of a user are cleared by loggedin.
+		 * Fires once every module has been wired up.
 		 *
-		 * @since 2.0.0
+		 * Add-ons should hook here to register themselves — by this
+		 * point the Settings store and the REST namespace are
+		 * already in place, so an add-on can safely call into either
+		 * during its own `init`.
 		 *
-		 * @param int $user_id User ID.
+		 * @since 1.3.1
+		 *
+		 * @param Core $core The shared `Core` instance.
 		 */
-		do_action( 'loggedin_destroy_all_sessions', $user_id );
+		do_action( 'loggedin_init', $this );
 	}
 
 	/**
-	 * Log out only the oldest session for the user.
-	 *
-	 * This function retrieves the raw session tokens directly from user meta,
-	 * identifies the oldest session by its login timestamp, and removes it.
-	 * This will not work when a different type of session storage (eg: Redis) is being used.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param int $user_id User ID.
-	 *
-	 * @return void
+	 * Modules required on every request type.
 	 */
-	protected function destroy_oldest_session( $user_id ) {
-		// Retrieve the raw sessions array directly from user meta.
-		$sessions = get_user_meta( $user_id, 'session_tokens', true );
-		if ( ! is_array( $sessions ) || empty( $sessions ) ) {
-			return;
-		}
+	private function common(): void {
+		Settings::instance();
+		Upgrader::instance();
+	}
 
-		$oldest_token = '';
-		$oldest_time  = time();
+	/**
+	 * Front-end modules — runs on every page load, including the
+	 * wp-login flow.
+	 */
+	private function front(): void {
+		Session_Guard::instance();
+	}
 
-		// Loop through sessions to find the oldest one.
-		foreach ( $sessions as $token => $session ) {
-			if ( isset( $session['login'] ) && $session['login'] < $oldest_time ) {
-				$oldest_time  = $session['login'];
-				$oldest_token = $token;
-			}
-		}
-
-		if ( ! empty( $oldest_token ) ) {
-			// Destroy oldest session.
-			unset( $sessions[ $oldest_token ] );
-			update_user_meta( $user_id, 'session_tokens', $sessions );
-
-			/**
-			 * Action hook to trigger when oldest login session of a user are cleared by loggedin.
-			 *
-			 * @since 2.0.0
-			 *
-			 * @param int $user_id User ID.
-			 */
-			do_action( 'loggedin_destroy_oldest_session', $user_id );
+	/**
+	 * Admin-only modules. Gated on `is_admin()` so the menu /
+	 * asset registrations don't fire on REST or front-end requests.
+	 */
+	private function admin(): void {
+		if ( is_admin() ) {
+			Admin::instance();
+			Assets::instance();
 		}
 	}
 
 	/**
-	 * Check if the current user is allowed for another login.
+	 * Freemius wiring.
 	 *
-	 * Count all the active logins for the current user annd
-	 * check if that exceeds the maximum login limit set.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $user_id User ID.
-	 *
-	 * @return boolean Limit reached or not
+	 * Loaded everywhere — REST endpoints (which run outside
+	 * `is_admin()`) need it too. The Addons module defers the actual
+	 * `Freemius::get_instance()` calls until the first read, so this
+	 * line is cheap on non-admin requests.
 	 */
-	protected function has_limit_reached( $user_id ): bool {
-		// No user ID, no limit.
-		if ( empty( $user_id ) ) {
-			return false;
-		}
-
-		// If bypassed.
-		if ( $this->is_bypassed( $user_id ) ) {
-			return false;
-		}
-
-		// Get maximum active logins allowed.
-		$maximum = intval( get_option( 'loggedin_maximum', 1 ) );
-
-		// Sessions token instance.
-		$manager = WP_Session_Tokens::get_instance( $user_id );
-
-		// Count sessions.
-		$count = count( $manager->get_all() );
-
-		// Check if limit reached.
-		$reached = $count >= $maximum;
-
-		/**
-		 * Filter hook to change the limit condition.
-		 *
-		 * @since 1.3.0
-		 * @since 1.3.1 Added count param.
-		 *
-		 * @param bool $reached Reached.
-		 * @param int  $user_id User ID.
-		 * @param int  $count   Active logins count.
-		 */
-		return apply_filters( 'loggedin_reached_limit', $reached, $user_id, $count );
+	private function addons(): void {
+		Addons::instance();
 	}
 
 	/**
-	 * Custom login limit bypassing.
-	 *
-	 * Filter to bypass login limit based on a condition.
-	 * You can make use of this filter if you want to bypass
-	 * some users or roles from limit limit.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param int $user_id User ID.
-	 *
-	 * @return bool
+	 * REST controllers. Each registers its routes on `rest_api_init`,
+	 * so calling `instance()` here outside of a REST context is
+	 * effectively free.
 	 */
-	protected function is_bypassed( $user_id ): bool {
-		/**
-		 * Filter hook to bypass the check.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param int  $user_id User ID.
-		 * @param bool $bypass  Bypassed.
-		 */
-		return (bool) apply_filters( 'loggedin_bypass', false, $user_id );
-	}
-
-	/**
-	 * Error message text if user active logins count is maximum
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string Error message
-	 */
-	protected function limit_error_message(): string {
-		// Error message.
-		$message = __( 'You\'ve reached the maximum number of active logins for this account. Please log out from another device to continue.', 'loggedin' );
-
-		/**
-		 * Filter hook to change the error message.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param string $message Message.
-		 */
-		return apply_filters( 'loggedin_error_message', $message );
+	private function api(): void {
+		Settings_Api::instance();
+		Addons_Api::instance();
+		Sessions_Api::instance();
 	}
 }

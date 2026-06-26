@@ -1,149 +1,384 @@
-# Copyright (C) 2020 Joel James
+# Copyright (C) 2026 Joel James
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Loggedin - Limit Active Logins 1.3.1\n"
-"Report-Msgid-Bugs-To: https://duckdev.com\n"
-"POT-Creation-Date: 2020-09-19 03:34:00+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: Loggedin - Limit Concurrent Sessions 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/loggedin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Joel James <me@joelsays.com>\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-26T18:37:08+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: loggedin\n"
 
-#: includes/class-loggedin-admin.php:74
-#. translators: %s User name of the logging out user.
-msgid "User %s forcefully logged out from all devices."
+#. Plugin Name of the plugin
+#: loggedin.php
+msgid "Loggedin - Limit Concurrent Sessions"
 msgstr ""
 
-#: includes/class-loggedin-admin.php:86
-#. translators: %d User ID of the login user.
-msgid "Invalid user ID: %d"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:121
-msgid "Maximum Active Logins"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:130
-msgid "Login Logic"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:139 includes/class-loggedin-admin.php:195
-msgid "Force Logout"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:159
-msgid "Enter the limit in number"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:160
-msgid "Set the maximum no. of active logins a user account can have."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:161
-msgid ""
-"If this limit reached, next login request will be failed and user will have "
-"to logout from one device to continue."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:162
-msgid "Note: "
-msgstr ""
-
-#: includes/class-loggedin-admin.php:162
-msgid "Even if the browser is closed, login session may exist."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:178
-msgid "Allow"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:179
-msgid "Block"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:180
-msgid "Allow:"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:180
-msgid ""
-"Allow new login by terminating all other old sessions when the limit is "
-"reached."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:181
-msgid "Block:"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:181
-msgid ""
-" Do not allow new login if the limit is reached. Users need to wait for the "
-"old login sessions to expire."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:194
-msgid "Enter user ID"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:196
-msgid ""
-"If you would like to force logout a user from all the devices, enter the "
-"user ID."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:242
-#. translators: %1$s Current user's name. %2$s <strong> %3$s </strong>.
-msgid ""
-"Hey %1$s, I noticed you've been using %2$sLoggedin%3$s plugin for more than "
-"1 week – that’s awesome! Could you please do me a BIG favor and give it a "
-"5-star rating on WordPress? Just to help us spread the word and boost our "
-"motivation."
-msgstr ""
-
-#: includes/class-loggedin-admin.php:243
-msgid "there"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:251
-msgid "Ok, you deserve it"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:256
-msgid "Nope, maybe later"
-msgstr ""
-
-#: includes/class-loggedin-admin.php:261
-msgid "I already did"
-msgstr ""
-
-#: includes/class-loggedin.php:186
-msgid ""
-"Maximum no. of active logins found for this account. Please logout from "
-"another device to continue."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Loggedin - Limit Active Logins"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
+#. Plugin URI of the plugin
+#: loggedin.php
 msgid "https://duckdev.com/products/loggedin-limit-active-logins/"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"Light weight plugin to limit number of active logins from an account. Set "
-"maximum number of concurrent logins a user can have from multiple places."
+#. Description of the plugin
+#: loggedin.php
+msgid "Limit an account to a specific number of simultaneous logins across all devices."
 msgstr ""
 
-#. Author of the plugin/theme
+#. Author of the plugin
+#: loggedin.php
 msgid "Joel James"
 msgstr ""
 
-#. Author URI of the plugin/theme
+#. Author URI of the plugin
+#: loggedin.php
 msgid "https://duckdev.com/"
+msgstr ""
+
+#: includes/addons/class-addons.php:189
+#: includes/addons/class-addons.php:213
+msgid "Addon not initialized."
+msgstr ""
+
+#. translators: %s user login of the user being logged out.
+#: includes/admin/class-admin.php:90
+#, php-format
+msgid "The user \"%s\" was forcefully logged out from all devices."
+msgstr ""
+
+#. translators: %d the invalid user id supplied in the request.
+#: includes/admin/class-admin.php:101
+#, php-format
+msgid "Invalid user ID: %d"
+msgstr ""
+
+#. translators: %s lock icon.
+#: includes/admin/class-admin.php:122
+#: includes/admin/class-admin.php:165
+#, php-format
+msgid "%s Loggedin Settings"
+msgstr ""
+
+#. translators: %s lock icon.
+#: includes/admin/class-admin.php:124
+#, php-format
+msgid "%s Loggedin"
+msgstr ""
+
+#. translators: %1$s opening anchor, %2$s closing anchor.
+#: includes/admin/class-admin.php:184
+#, php-format
+msgid "Loggedin settings have been relocated. %1$sClick here%2$s to access the new settings page."
+msgstr ""
+
+#. translators: %s the admin's display name.
+#: includes/admin/class-admin.php:263
+#, php-format
+msgid "Hi %s, are you enjoying Loggedin? Could you leave a quick rating on WordPress.org?"
+msgstr ""
+
+#: includes/admin/class-admin.php:269
+msgid "Rate now"
+msgstr ""
+
+#: includes/admin/class-admin.php:271
+msgid "Maybe later"
+msgstr ""
+
+#: includes/admin/class-admin.php:273
+msgid "No thanks"
+msgstr ""
+
+#: includes/admin/class-assets.php:175
+msgid "Loggedin"
+msgstr ""
+
+#: includes/admin/class-assets.php:206
+msgid "Logout Oldest"
+msgstr ""
+
+#: includes/admin/class-assets.php:207
+msgid "When the concurrent login limit is reached, a new login will automatically end the single oldest active session. This feature works only with user meta session storage."
+msgstr ""
+
+#: includes/admin/class-assets.php:210
+msgid "Logout All"
+msgstr ""
+
+#: includes/admin/class-assets.php:211
+msgid "When the concurrent login limit is reached, a new login will automatically terminate all previously active sessions."
+msgstr ""
+
+#: includes/admin/class-assets.php:214
+msgid "Block New"
+msgstr ""
+
+#: includes/admin/class-assets.php:215
+msgid "If the concurrent login limit is reached, do not allow new logins. Users must then wait for existing login sessions to expire."
+msgstr ""
+
+#: includes/api/class-addons.php:177
+#: includes/api/class-addons.php:216
+msgid "Licensing is not configured."
+msgstr ""
+
+#: includes/api/class-sessions.php:73
+msgid "User id, email, or login."
+msgstr ""
+
+#: includes/api/class-sessions.php:101
+msgid "Enter a user id, email, or username."
+msgstr ""
+
+#. translators: %s the identifier supplied in the request.
+#: includes/api/class-sessions.php:113
+#, php-format
+msgid "No user found matching \"%s\"."
+msgstr ""
+
+#: includes/front/class-session-guard.php:281
+msgid "You've reached the maximum number of active logins for this account. Please log out from another device to continue."
+msgstr ""
+
+#: assets/src/common/error-boundary.js:71
+msgid "Something went wrong while rendering this page."
+msgstr ""
+
+#: assets/src/common/footer.js:26
+msgid "Saving…"
+msgstr ""
+
+#: assets/src/common/footer.js:27
+msgid "Save Changes"
+msgstr ""
+
+#: assets/src/hooks/use-settings.js:81
+msgid "Settings saved."
+msgstr ""
+
+#: assets/src/hooks/use-settings.js:86
+msgid "Could not save settings."
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:59
+msgid "Buy Now"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:60
+msgid "Get it"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:75
+#: assets/src/modules/admin/components/addon-card.js:93
+msgid "Active"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:102
+msgid "Premium"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:103
+msgid "Free"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:114
+msgid "Licensed"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:115
+msgid "Unlicensed"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:134
+msgid "Learn more"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:156
+msgid "Manage license"
+msgstr ""
+
+#: assets/src/modules/admin/components/addon-card.js:160
+msgid "Activate license"
+msgstr ""
+
+#. translators: %s user login of the destroyed user.
+#: assets/src/modules/admin/components/force-logout-panel.js:61
+#, js-format
+msgid "All sessions destroyed for \"%s\"."
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:74
+msgid "Could not destroy sessions. Please try again."
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:87
+#: assets/src/modules/admin/components/force-logout-panel.js:116
+msgid "Force Logout"
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:94
+msgid "User"
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:95
+msgid "Enter a user id, email address, or username. All active sessions for that user will be destroyed."
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:115
+msgid "Logging out…"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:81
+msgid "Enter a license key first."
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:104
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#. translators: %s addon title.
+#: assets/src/modules/admin/components/license-modal.js:112
+#, js-format
+msgid "Manage license — %s"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:129
+msgid "License Key"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:145
+msgid "Cancel"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:164
+msgid "Deactivating…"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:165
+msgid "Activating…"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:167
+msgid "Deactivate"
+msgstr ""
+
+#: assets/src/modules/admin/components/license-modal.js:168
+msgid "Activate"
+msgstr ""
+
+#: assets/src/modules/admin/index.js:51
+msgid "Loggedin – Limit Concurrent Sessions"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/addons.js:67
+msgid "Refreshing…"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/addons.js:68
+msgid "Refresh Addons"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/addons.js:74
+msgid "No addons available."
+msgstr ""
+
+#: assets/src/modules/admin/tabs/index.js:20
+msgid "Settings"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/index.js:24
+msgid "Addons"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/index.js:29
+msgid "Support"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/settings.js:87
+msgid "General Settings"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/settings.js:93
+msgid "Active Logins Limit"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/settings.js:94
+msgid "Maximum number of simultaneous logins allowed per user account."
+msgstr ""
+
+#: assets/src/modules/admin/tabs/settings.js:116
+msgid "Login Logic"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:25
+msgid "Documentation"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:30
+msgid "Support Forums"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:35
+msgid "Priority Support"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:48
+msgid "About Us"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:53
+msgid "WP.org Profile"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:94
+msgid "Support Information"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:98
+msgid "Need help with the plugin? Reach out through any of the channels below."
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:107
+msgid "About the Author"
+msgstr ""
+
+#: assets/src/modules/admin/tabs/support.js:111
+msgid "Hey, I'm Joel James, a Software Engineer based in Kerala, India. I'm passionate about open source and dedicate a lot of my time to contributing to it. If you like this plugin, I'd encourage you to check out my other WordPress plugins as well!"
+msgstr ""
+
+#: assets/src/store/addons/actions.js:68
+msgid "Addons refreshed."
+msgstr ""
+
+#: assets/src/store/addons/actions.js:74
+msgid "Could not refresh the addons list."
+msgstr ""
+
+#: assets/src/store/addons/actions.js:104
+msgid "License activated."
+msgstr ""
+
+#: assets/src/store/addons/actions.js:112
+msgid "License activation failed. Please double-check the key and try again."
+msgstr ""
+
+#: assets/src/store/addons/actions.js:122
+msgid "License activation failed. Please try again."
+msgstr ""
+
+#: assets/src/store/addons/actions.js:150
+msgid "License deactivated."
+msgstr ""
+
+#: assets/src/store/addons/actions.js:158
+#: assets/src/store/addons/actions.js:168
+msgid "License deactivation failed. Please try again."
+msgstr ""
+
+#: assets/src/store/addons/resolvers.js:35
+msgid "Failed to load addons."
 msgstr ""

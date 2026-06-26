@@ -2,29 +2,37 @@
     "packages": [
         {
             "name": "duckdev/freemius-plugin-licensing",
-            "version": "1.0.0",
-            "version_normalized": "1.0.0.0",
+            "version": "2.0.2",
+            "version_normalized": "2.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/duckdev/freemius-plugin-licensing.git",
-                "reference": "f175fa2adbba8b30936142ba1cf4da97ce7b6f1e"
+                "reference": "1a5006b94d8397a232346978427049748c56b554"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/duckdev/freemius-plugin-licensing/zipball/f175fa2adbba8b30936142ba1cf4da97ce7b6f1e",
-                "reference": "f175fa2adbba8b30936142ba1cf4da97ce7b6f1e",
+                "url": "https://api.github.com/repos/duckdev/freemius-plugin-licensing/zipball/1a5006b94d8397a232346978427049748c56b554",
+                "reference": "1a5006b94d8397a232346978427049748c56b554",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4"
             },
-            "time": "2025-11-08T17:53:24+00:00",
+            "require-dev": {
+                "brain/monkey": "^2.6",
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "^3.10",
+                "wp-coding-standards/wpcs": "^3.1"
+            },
+            "time": "2026-06-26T04:35:35+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
-                "classmap": [
-                    "src/"
-                ]
+                "psr-4": {
+                    "DuckDev\\Freemius\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -48,11 +56,11 @@
             ],
             "support": {
                 "issues": "https://github.com/duckdev/freemius-plugin-licensing/issues",
-                "source": "https://github.com/duckdev/freemius-plugin-licensing/tree/1.0"
+                "source": "https://github.com/duckdev/freemius-plugin-licensing/tree/v2.0.2"
             },
             "install-path": "../duckdev/freemius-plugin-licensing"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

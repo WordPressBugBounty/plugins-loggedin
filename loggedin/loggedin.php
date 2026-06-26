@@ -1,81 +1,92 @@
 <?php
 /**
- * Main plugin header.
+ * Plugin entry file.
  *
- * @package LoggedIn
+ * Defines the path / file constants, loads the Composer autoloader,
+ * loads the text domain, and hands off to {@see Core::instance()} to
+ * boot every module in phased order.
  *
- * Plugin Name:         Loggedin - Limit Concurrent Sessions
- * Plugin URI:          https://duckdev.com/products/loggedin-limit-active-logins/
- * Description:         Limit an account to a specific number of simultaneous logins across all devices.
- * Version:             2.0.4
- * Author:              Joel James
- * Author URI:          https://duckdev.com/
- * Donate link:         https://paypal.me/JoelCJ
- * License:             GPL-2.0+
- * License URI:         http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:         loggedin
- * Domain Path:         /languages
- * Requires PHP:        7.4
- * Requires at least:   5.0
+ * This file is intentionally minimal — the rule of thumb is "no
+ * runtime logic in the bootstrap." Each subsystem (settings storage,
+ * session guard, admin UI, REST API, Freemius) lives behind its own
+ * class under `includes/` and registers its own hooks from there.
  *
- * Loggedin is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * any later version.
+ * @package           DuckDev\Loggedin
+ * @author            Joel James
+ * @copyright         2025 Joel James
+ * @license           GPL-2.0+
  *
- * Loggedin is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Loggedin. If not, see <http://www.gnu.org/licenses/>.
+ * @wordpress-plugin
+ * Plugin Name:       Loggedin - Limit Concurrent Sessions
+ * Plugin URI:        https://duckdev.com/products/loggedin-limit-active-logins/
+ * Description:       Limit an account to a specific number of simultaneous logins across all devices.
+ * Version:           3.0.0
+ * Author:            Joel James
+ * Author URI:        https://duckdev.com/
+ * Donate link:       https://paypal.me/JoelCJ
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       loggedin
+ * Domain Path:       /languages
+ * Requires PHP:      7.4
+ * Requires at least: 6.0
  */
 
 namespace DuckDev\Loggedin;
 
-// If this file is called directly, abort.
+// Block direct file access — WPINC is only defined when loaded by core.
 defined( 'WPINC' ) || die;
 
-// Plugin directory path.
+/**
+ * Absolute filesystem path to the plugin directory, with trailing slash.
+ *
+ * Used everywhere we need to include or read a file shipped inside
+ * the plugin (the autoloader, the React bundle in `build/`, the
+ * language files, etc.). Defined here once so individual classes
+ * can read it via `Plugin::dir()` without ever recomputing it.
+ */
 define( 'LOGGEDIN_DIR', plugin_dir_path( __FILE__ ) );
+
+/**
+ * Absolute filesystem path to *this file*.
+ *
+ * Freemius needs the main plugin file path during instance creation
+ * (it derives the plugin basename from it). Captured here so we don't
+ * have to thread it through every constructor.
+ */
 define( 'LOGGEDIN_FILE', __FILE__ );
 
-// Make sure loggedin is not already defined.
 if ( ! function_exists( __NAMESPACE__ . '\\init' ) ) {
 	/**
-	 * Main instance of plugin.
+	 * Boot the plugin once core has finished loading.
+	 *
+	 * Wrapped in a `function_exists` guard so a second copy of the
+	 * plugin loaded from a different directory (a stray symlink, a
+	 * dev clone) can't redefine the function and silently shadow the
+	 * first init call. The function:
+	 *
+	 *   1. Loads the plugin text domain so any string surfaced during
+	 *      boot (e.g. an admin notice from the upgrader) is already
+	 *      translatable.
+	 *   2. Pulls in the Composer autoloader.
+	 *   3. Hands off to {@see Core::instance()}, which is responsible
+	 *      for wiring every module in order.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @return void
 	 */
-	function init() {
-		// Load text domain.
+	function init(): void {
 		load_plugin_textdomain(
 			'loggedin',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
 
-		// Load autoloader.
 		require __DIR__ . '/vendor/autoload.php';
 
-		// Load classes.
-		new Core();
-		new Admin();
-		new Addons();
-
-		/**
-		 * Action hook to execute after our plugin init.
-		 *
-		 * Use this hook to init addons.
-		 *
-		 * @since 1.3.1
-		 */
-		do_action( 'loggedin_init' );
+		Core::instance();
 	}
 }
 
-// Init the plugin.
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\init' );

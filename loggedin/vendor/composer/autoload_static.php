@@ -4,27 +4,65 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc34515ab5340f383748745abea83b406
+class ComposerStaticInit0ccd1252ad7764c793e490dd2e571496
 {
+    public static $prefixLengthsPsr4 = array (
+        'D' =>
+        array (
+            'DuckDev\\Freemius\\' => 17,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'DuckDev\\Freemius\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'DuckDev\\Freemius\\Api\\Api' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/api/class-api.php',
-        'DuckDev\\Freemius\\Data\\Plugin' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/data/class-plugin.php',
-        'DuckDev\\Freemius\\Freemius' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/freemius.php',
-        'DuckDev\\Freemius\\Services\\Addon' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/services/class-addon.php',
-        'DuckDev\\Freemius\\Services\\License' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/services/class-license.php',
-        'DuckDev\\Freemius\\Services\\Service' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/services/class-service.php',
-        'DuckDev\\Freemius\\Services\\Update' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/services/class-update.php',
-        'DuckDev\\Loggedin\\Addons' => __DIR__ . '/../..' . '/includes/class-addons.php',
-        'DuckDev\\Loggedin\\Admin' => __DIR__ . '/../..' . '/includes/class-admin.php',
+        'DuckDev\\Freemius\\Api\\ApiFactory' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Api/ApiFactory.php',
+        'DuckDev\\Freemius\\Api\\Client' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Api/Client.php',
+        'DuckDev\\Freemius\\Api\\RequestSigner' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Api/RequestSigner.php',
+        'DuckDev\\Freemius\\Api\\SignedClient' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Api/SignedClient.php',
+        'DuckDev\\Freemius\\Contracts\\ApiClientInterface' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Contracts/ApiClientInterface.php',
+        'DuckDev\\Freemius\\Contracts\\CacheInterface' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Contracts/CacheInterface.php',
+        'DuckDev\\Freemius\\Contracts\\ServiceInterface' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Contracts/ServiceInterface.php',
+        'DuckDev\\Freemius\\Data\\Activation' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Data/Activation.php',
+        'DuckDev\\Freemius\\Data\\ApiKeys' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Data/ApiKeys.php',
+        'DuckDev\\Freemius\\Data\\Plugin' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Data/Plugin.php',
+        'DuckDev\\Freemius\\Exceptions\\FreemiusException' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Exceptions/FreemiusException.php',
+        'DuckDev\\Freemius\\Freemius' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Freemius.php',
+        'DuckDev\\Freemius\\Services\\AbstractService' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Services/AbstractService.php',
+        'DuckDev\\Freemius\\Services\\Addon' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Services/Addon.php',
+        'DuckDev\\Freemius\\Services\\License' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Services/License.php',
+        'DuckDev\\Freemius\\Services\\Update' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Services/Update.php',
+        'DuckDev\\Freemius\\Storage\\ActivationRepository' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Storage/ActivationRepository.php',
+        'DuckDev\\Freemius\\Storage\\TransientCache' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Storage/TransientCache.php',
+        'DuckDev\\Freemius\\Support\\SiteIdentity' => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src/Support/SiteIdentity.php',
+        'DuckDev\\Loggedin\\Addons\\Addons' => __DIR__ . '/../..' . '/includes/addons/class-addons.php',
+        'DuckDev\\Loggedin\\Addons\\Catalog' => __DIR__ . '/../..' . '/includes/addons/class-catalog.php',
+        'DuckDev\\Loggedin\\Admin\\Admin' => __DIR__ . '/../..' . '/includes/admin/class-admin.php',
+        'DuckDev\\Loggedin\\Admin\\Assets' => __DIR__ . '/../..' . '/includes/admin/class-assets.php',
+        'DuckDev\\Loggedin\\Api\\Addons' => __DIR__ . '/../..' . '/includes/api/class-addons.php',
+        'DuckDev\\Loggedin\\Api\\Endpoint' => __DIR__ . '/../..' . '/includes/api/class-endpoint.php',
+        'DuckDev\\Loggedin\\Api\\Sessions' => __DIR__ . '/../..' . '/includes/api/class-sessions.php',
+        'DuckDev\\Loggedin\\Api\\Settings' => __DIR__ . '/../..' . '/includes/api/class-settings.php',
+        'DuckDev\\Loggedin\\Contracts\\Singleton' => __DIR__ . '/../..' . '/includes/contracts/trait-singleton.php',
         'DuckDev\\Loggedin\\Core' => __DIR__ . '/../..' . '/includes/class-core.php',
-        'DuckDev\\Loggedin\\View' => __DIR__ . '/../..' . '/includes/class-view.php',
+        'DuckDev\\Loggedin\\Front\\Session_Guard' => __DIR__ . '/../..' . '/includes/front/class-session-guard.php',
+        'DuckDev\\Loggedin\\Plugin' => __DIR__ . '/../..' . '/includes/class-plugin.php',
+        'DuckDev\\Loggedin\\Setup\\Settings' => __DIR__ . '/../..' . '/includes/setup/class-settings.php',
+        'DuckDev\\Loggedin\\Setup\\Upgrader' => __DIR__ . '/../..' . '/includes/setup/class-upgrader.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitc34515ab5340f383748745abea83b406::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0ccd1252ad7764c793e490dd2e571496::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0ccd1252ad7764c793e490dd2e571496::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0ccd1252ad7764c793e490dd2e571496::$classMap;
 
         }, null, ClassLoader::class);
     }
