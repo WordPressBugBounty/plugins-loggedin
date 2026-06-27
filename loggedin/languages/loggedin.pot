@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Loggedin - Limit Concurrent Sessions 3.0.0\n"
+"Project-Id-Version: Loggedin - Limit Concurrent Sessions 3.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/loggedin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-26T18:37:08+00:00\n"
+"POT-Creation-Date: 2026-06-27T15:16:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: loggedin\n"
@@ -173,62 +173,74 @@ msgid "Get it"
 msgstr ""
 
 #: assets/src/modules/admin/components/addon-card.js:75
-#: assets/src/modules/admin/components/addon-card.js:93
+#: assets/src/modules/admin/components/addon-card.js:92
 msgid "Active"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:102
+#: assets/src/modules/admin/components/addon-card.js:101
 msgid "Premium"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:103
+#: assets/src/modules/admin/components/addon-card.js:102
 msgid "Free"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:114
+#: assets/src/modules/admin/components/addon-card.js:113
 msgid "Licensed"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:115
+#: assets/src/modules/admin/components/addon-card.js:114
 msgid "Unlicensed"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:134
-msgid "Learn more"
+#: assets/src/modules/admin/components/addon-card.js:140
+msgid "Manage License"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:156
-msgid "Manage license"
+#: assets/src/modules/admin/components/addon-card.js:141
+msgid "Activate License"
 msgstr ""
 
-#: assets/src/modules/admin/components/addon-card.js:160
-msgid "Activate license"
+#: assets/src/modules/admin/components/addon-card.js:158
+msgid "More details"
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:51
+msgid "Need to log someone out without knowing who?"
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:58
+msgid "Install the Active Sessions addon to browse every user with a live session, drill into each device they’re signed in from, and sign them out one at a time — or all at once."
+msgstr ""
+
+#: assets/src/modules/admin/components/force-logout-panel.js:67
+msgid "Get Active Sessions"
 msgstr ""
 
 #. translators: %s user login of the destroyed user.
-#: assets/src/modules/admin/components/force-logout-panel.js:61
+#: assets/src/modules/admin/components/force-logout-panel.js:120
 #, js-format
 msgid "All sessions destroyed for \"%s\"."
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:74
+#: assets/src/modules/admin/components/force-logout-panel.js:133
 msgid "Could not destroy sessions. Please try again."
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:87
-#: assets/src/modules/admin/components/force-logout-panel.js:116
+#: assets/src/modules/admin/components/force-logout-panel.js:146
+#: assets/src/modules/admin/components/force-logout-panel.js:175
 msgid "Force Logout"
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:94
+#: assets/src/modules/admin/components/force-logout-panel.js:153
 msgid "User"
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:95
+#: assets/src/modules/admin/components/force-logout-panel.js:154
 msgid "Enter a user id, email address, or username. All active sessions for that user will be destroyed."
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:115
+#: assets/src/modules/admin/components/force-logout-panel.js:174
 msgid "Logging out…"
 msgstr ""
 
@@ -270,7 +282,7 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
-#: assets/src/modules/admin/index.js:51
+#: assets/src/modules/admin/index.js:56
 msgid "Loggedin – Limit Concurrent Sessions"
 msgstr ""
 
@@ -286,15 +298,15 @@ msgstr ""
 msgid "No addons available."
 msgstr ""
 
-#: assets/src/modules/admin/tabs/index.js:20
+#: assets/src/modules/admin/tabs/index.js:38
 msgid "Settings"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/index.js:24
+#: assets/src/modules/admin/tabs/index.js:43
 msgid "Addons"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/index.js:29
+#: assets/src/modules/admin/tabs/index.js:49
 msgid "Support"
 msgstr ""
 

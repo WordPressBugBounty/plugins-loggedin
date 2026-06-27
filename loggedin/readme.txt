@@ -4,7 +4,7 @@ Tags: concurrent login, login limit, prevent account sharing, user sessions, for
 Donate link: https://paypal.me/JoelCJ
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -53,6 +53,7 @@ There's a one-click **Force Logout** panel in the admin to clear every session f
 
 Extend Loggedin with these official [add-ons](https://duckdev.com/addons/loggedin/):
 
+* **[Active Sessions](https://duckdev.com/addon/loggedin-active-sessions/)** — See exactly who's signed in right now, drill into each device per user, and sign out a single session — or every session — in one click.
 * **[Limit Per User](https://duckdev.com/addon/limit-per-user/)** — Override the global session cap for an individual user account directly from their WordPress profile. Perfect for tiered access or trusted-staff exemptions.
 * **[Limit Per Role](https://duckdev.com/addon/limit-per-role/)** — Set a different concurrent-session cap per WordPress role. Give administrators more headroom while keeping subscribers tight, or vice versa.
 * **[Real-time Logout](https://duckdev.com/addon/real-time-logout/)** — Detect logouts in near-real-time. When Loggedin terminates a session, the user's other open tabs reload to wp-login automatically — no waiting for the next page click.
@@ -171,6 +172,12 @@ See the [developer docs](https://docs.duckdev.com/loggedin/developer-docs) for e
 
 == Changelog ==
 
+= 3.0.1 =
+* New: `loggedin.admin.tabs` JS filter — addons can register their own React component as a tab in the Loggedin admin nav, with optional `before` / `after` positioning hints. Powers the new Active Sessions addon.
+* New: Cross-sell banner on the Force Logout panel routed through `loggedin.settings.force_logout.cross_sell` so addons can hide or replace it once installed.
+* Improve: Addon card layout aligned with the 404 to 301 plugin — primary CTA pinned to the left of the footer, "More details" link on the right, title-cased license button labels.
+* Fix: The v2 → v3 settings migration never ran on existing installs, leaving legacy option keys in place after the upgrade.
+
 = 3.0.0 =
 * New: Modern React-powered admin under Users → Loggedin with two tabs — Settings (concurrent-login limit + login logic + Force Logout panel) and Add-ons (catalogue + license management).
 * New: REST API at `/loggedin/v1/` for settings, session management and add-on licensing.
@@ -194,11 +201,8 @@ For the full release history, see the [changelog](https://docs.duckdev.com/logge
 
 == Upgrade Notice ==
 
+= 3.0.1 =
+A maintenance release that fixes the v2→v3 settings migration and adds the JS extension points the new Active Sessions addon hooks into.
+
 = 3.0.0 =
 A major release with a brand-new React admin, REST API, add-ons catalogue with in-dashboard license management and a documented hook surface. Back up your database before updating.
-
-= 2.0.4 =
-A maintenance release that fixes the review-notice dismiss action and respects the dismiss state across admin page loads.
-
-= 2.0.3 =
-A maintenance release that removes leftover debug code shipped accidentally in 2.0.2.
