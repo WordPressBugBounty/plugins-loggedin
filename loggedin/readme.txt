@@ -4,7 +4,7 @@ Tags: concurrent login, login limit, prevent account sharing, user sessions, for
 Donate link: https://paypal.me/JoelCJ
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -172,6 +172,12 @@ See the [developer docs](https://docs.duckdev.com/loggedin/developer-docs) for e
 
 == Changelog ==
 
+= 3.0.2 =
+* New: Review-request notice restored, powered by the `duckdev/wp-review-notice` library and scoped to the Loggedin settings screen with a 7-day delay.
+* Improve: Legacy review-notice state migrated to the new storage keys so users who already dismissed the prompt stay dismissed.
+* Improve: Admin notices now render inside the plugin's centered page column instead of above the header, matching the 404 to 301 shell.
+* Fix: Left-hand gap between the plugin header and the admin sidebar caused by WordPress's default `#wpcontent` padding.
+
 = 3.0.1 =
 * New: `loggedin.admin.tabs` JS filter — addons can register their own React component as a tab in the Loggedin admin nav, with optional `before` / `after` positioning hints. Powers the new Active Sessions addon.
 * New: Cross-sell banner on the Force Logout panel routed through `loggedin.settings.force_logout.cross_sell` so addons can hide or replace it once installed.
@@ -200,6 +206,9 @@ See the [developer docs](https://docs.duckdev.com/loggedin/developer-docs) for e
 For the full release history, see the [changelog](https://docs.duckdev.com/loggedin/changelog).
 
 == Upgrade Notice ==
+
+= 3.0.2 =
+Brings back the wp.org review prompt (now scoped to the Loggedin settings screen), migrates any prior dismiss state so existing users are not re-prompted, and tightens the admin layout so notices sit inside the page column.
 
 = 3.0.1 =
 A maintenance release that fixes the v2→v3 settings migration and adds the JS extension points the new Active Sessions addon hooks into.

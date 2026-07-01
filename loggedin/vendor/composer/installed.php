@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'loggedin/loggedin',
-        'pretty_version' => '3.0.1',
-        'version' => '3.0.1.0',
+        'pretty_version' => '3.0.2',
+        'version' => '3.0.2.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -19,9 +19,18 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'duckdev/wp-review-notice' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => 'ff2aa098820d0e6d9b0b6095770e0775cb1e6477',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../duckdev/wp-review-notice',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'loggedin/loggedin' => array(
-            'pretty_version' => '3.0.1',
-            'version' => '3.0.1.0',
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',

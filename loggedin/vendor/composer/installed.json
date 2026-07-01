@@ -59,6 +59,66 @@
                 "source": "https://github.com/duckdev/freemius-plugin-licensing/tree/v2.0.2"
             },
             "install-path": "../duckdev/freemius-plugin-licensing"
+        },
+        {
+            "name": "duckdev/wp-review-notice",
+            "version": "2.0.0",
+            "version_normalized": "2.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/duckdev/wp-review-notice.git",
+                "reference": "ff2aa098820d0e6d9b0b6095770e0775cb1e6477"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/duckdev/wp-review-notice/zipball/ff2aa098820d0e6d9b0b6095770e0775cb1e6477",
+                "reference": "ff2aa098820d0e6d9b0b6095770e0775cb1e6477",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "brain/monkey": "^2.6",
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "^3.10",
+                "wp-coding-standards/wpcs": "^3.1"
+            },
+            "time": "2026-07-01T07:08:23+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "DuckDev\\Reviews\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Joel James",
+                    "email": "me@joelsays.com",
+                    "homepage": "https://duckdev.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple library to gently ask for a wp.org plugin review after a few days of plugin usage, with swappable storage drivers and a testable, DI-friendly architecture.",
+            "homepage": "https://github.com/duckdev/wp-review-notice",
+            "keywords": [
+                "admin",
+                "notices",
+                "reviews",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/duckdev/wp-review-notice/issues/",
+                "source": "https://github.com/duckdev/wp-review-notice/tree/v2.0.0"
+            },
+            "install-path": "../duckdev/wp-review-notice"
         }
     ],
     "dev": false,

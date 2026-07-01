@@ -9,11 +9,16 @@ class ComposerStaticInit0ccd1252ad7764c793e490dd2e571496
     public static $prefixLengthsPsr4 = array (
         'D' =>
         array (
+            'DuckDev\\Reviews\\' => 16,
             'DuckDev\\Freemius\\' => 17,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'DuckDev\\Reviews\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/duckdev/wp-review-notice/src',
+        ),
         'DuckDev\\Freemius\\' =>
         array (
             0 => __DIR__ . '/..' . '/duckdev/freemius-plugin-licensing/src',
@@ -55,6 +60,22 @@ class ComposerStaticInit0ccd1252ad7764c793e490dd2e571496
         'DuckDev\\Loggedin\\Plugin' => __DIR__ . '/../..' . '/includes/class-plugin.php',
         'DuckDev\\Loggedin\\Setup\\Settings' => __DIR__ . '/../..' . '/includes/setup/class-settings.php',
         'DuckDev\\Loggedin\\Setup\\Upgrader' => __DIR__ . '/../..' . '/includes/setup/class-upgrader.php',
+        'DuckDev\\Reviews\\Contracts\\CapabilityCheckerInterface' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Contracts/CapabilityCheckerInterface.php',
+        'DuckDev\\Reviews\\Contracts\\DismissalStoreInterface' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Contracts/DismissalStoreInterface.php',
+        'DuckDev\\Reviews\\Contracts\\RendererInterface' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Contracts/RendererInterface.php',
+        'DuckDev\\Reviews\\Contracts\\ScreenResolverInterface' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Contracts/ScreenResolverInterface.php',
+        'DuckDev\\Reviews\\Contracts\\TimerStoreInterface' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Contracts/TimerStoreInterface.php',
+        'DuckDev\\Reviews\\Exceptions\\NoticeException' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Exceptions/NoticeException.php',
+        'DuckDev\\Reviews\\Notice' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Notice.php',
+        'DuckDev\\Reviews\\Rendering\\DefaultRenderer' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Rendering/DefaultRenderer.php',
+        'DuckDev\\Reviews\\Rendering\\MessageBuilder' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Rendering/MessageBuilder.php',
+        'DuckDev\\Reviews\\Storage\\AdminScreenResolver' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Storage/AdminScreenResolver.php',
+        'DuckDev\\Reviews\\Storage\\SiteOptionTimerStore' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Storage/SiteOptionTimerStore.php',
+        'DuckDev\\Reviews\\Storage\\UserMetaDismissalStore' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Storage/UserMetaDismissalStore.php',
+        'DuckDev\\Reviews\\Storage\\WordPressCapabilityChecker' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Storage/WordPressCapabilityChecker.php',
+        'DuckDev\\Reviews\\Support\\ActionRouter' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Support/ActionRouter.php',
+        'DuckDev\\Reviews\\Support\\Config' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Support/Config.php',
+        'DuckDev\\Reviews\\Support\\KeyPrefixer' => __DIR__ . '/..' . '/duckdev/wp-review-notice/src/Support/KeyPrefixer.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

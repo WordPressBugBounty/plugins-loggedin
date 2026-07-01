@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Loggedin - Limit Concurrent Sessions 3.0.1\n"
+"Project-Id-Version: Loggedin - Limit Concurrent Sessions 3.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/loggedin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-27T15:16:50+00:00\n"
+"POT-Creation-Date: 2026-07-01T07:42:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: loggedin\n"
@@ -45,52 +45,34 @@ msgid "Addon not initialized."
 msgstr ""
 
 #. translators: %s user login of the user being logged out.
-#: includes/admin/class-admin.php:90
+#: includes/admin/class-admin.php:99
 #, php-format
 msgid "The user \"%s\" was forcefully logged out from all devices."
 msgstr ""
 
 #. translators: %d the invalid user id supplied in the request.
-#: includes/admin/class-admin.php:101
+#: includes/admin/class-admin.php:110
 #, php-format
 msgid "Invalid user ID: %d"
 msgstr ""
 
 #. translators: %s lock icon.
-#: includes/admin/class-admin.php:122
-#: includes/admin/class-admin.php:165
+#: includes/admin/class-admin.php:131
+#: includes/admin/class-admin.php:179
 #, php-format
 msgid "%s Loggedin Settings"
 msgstr ""
 
 #. translators: %s lock icon.
-#: includes/admin/class-admin.php:124
+#: includes/admin/class-admin.php:133
 #, php-format
 msgid "%s Loggedin"
 msgstr ""
 
 #. translators: %1$s opening anchor, %2$s closing anchor.
-#: includes/admin/class-admin.php:184
+#: includes/admin/class-admin.php:198
 #, php-format
 msgid "Loggedin settings have been relocated. %1$sClick here%2$s to access the new settings page."
-msgstr ""
-
-#. translators: %s the admin's display name.
-#: includes/admin/class-admin.php:263
-#, php-format
-msgid "Hi %s, are you enjoying Loggedin? Could you leave a quick rating on WordPress.org?"
-msgstr ""
-
-#: includes/admin/class-admin.php:269
-msgid "Rate now"
-msgstr ""
-
-#: includes/admin/class-admin.php:271
-msgid "Maybe later"
-msgstr ""
-
-#: includes/admin/class-admin.php:273
-msgid "No thanks"
 msgstr ""
 
 #: includes/admin/class-assets.php:175
@@ -282,7 +264,7 @@ msgstr ""
 msgid "Activate"
 msgstr ""
 
-#: assets/src/modules/admin/index.js:56
+#: assets/src/modules/admin/index.js:63
 msgid "Loggedin – Limit Concurrent Sessions"
 msgstr ""
 

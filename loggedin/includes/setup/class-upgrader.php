@@ -71,7 +71,70 @@ final class Upgrader {
 		// the legacy single-key values into the new option.
 		$this->migrate_legacy_options();
 
+		// Move the pre-library review-notice state onto the keys
+		// `duckdev/wp-review-notice` expects.
+		$this->migrate_review_notice_keys();
+
 		update_option( Plugin::VERSION_KEY, Plugin::VERSION );
+	}
+
+	/**
+	 * Rename legacy review-notice keys to the library's layout.
+	 *
+	 * Prior to 3.1 the review notice was hand-rolled in the Admin
+	 * module and stored:
+	 *   - option `loggedin_rating_notice` — unix timestamp of the
+	 *     next scheduled show.
+	 *   - user meta `loggedin_rating_notice_dismissed` — `1` when the
+	 *     user clicked "No thanks".
+	 *
+	 * The `duckdev/wp-review-notice` library uses the same shapes
+	 * under different names (`loggedin_review_time`,
+	 * `loggedin_review_dismissed`), so a straight rename preserves
+	 * every user's decision.
+	 *
+	 * The option rename is idempotent — a second run finds nothing
+	 * to move. The user-meta rename uses a single `UPDATE` on
+	 * `wp_usermeta` because there is no core API to bulk-rename a
+	 * meta key, and iterating users via `get_users( ['meta_key'…] )`
+	 * would be O(users) on very large sites for no benefit.
+	 *
+	 * @since 3.0.2
+	 *
+	 * @return void
+	 */
+	protected function migrate_review_notice_keys(): void {
+		$legacy_time = get_option( 'loggedin_rating_notice', null );
+
+		// Nothing to migrate — either a fresh install or an install
+		// that was already on the library's schema. Skipping here
+		// also means later version bumps don't re-scan `usermeta`.
+		if ( null === $legacy_time ) {
+			return;
+		}
+
+		// Only seed the new option if it hasn't been written yet —
+		// otherwise a fresh 7-day timer scheduled by the library on
+		// this same request would be clobbered by the older
+		// timestamp.
+		if ( false === get_option( 'loggedin_review_time', false ) ) {
+			update_option( 'loggedin_review_time', $legacy_time );
+		}
+
+		delete_option( 'loggedin_rating_notice' );
+
+		global $wpdb;
+
+		// One-shot rename — no caching layer to invalidate, and
+		// direct SQL is the only way to bulk-rename a meta key in
+		// core. Suppression is scoped to this call only.
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+		$wpdb->update(
+			$wpdb->usermeta,
+			array( 'meta_key' => 'loggedin_review_dismissed' ),
+			array( 'meta_key' => 'loggedin_rating_notice_dismissed' )
+		);
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 	}
 
 	/**

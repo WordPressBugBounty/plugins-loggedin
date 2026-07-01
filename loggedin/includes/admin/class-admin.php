@@ -13,8 +13,9 @@
  *   - The "force logout this user from all devices" action handler
  *     (link rendered by addon code or admin pages outside this
  *     plugin).
- *   - The review-request notice (one-time prompt asking the user to
- *     rate the plugin on wp.org).
+ *   - The review-request notice (delegated to the
+ *     `duckdev/wp-review-notice` library and scoped to the plugin
+ *     settings screen).
  *
  * Asset enqueueing for the React bundle lives in a sibling class —
  * {@see Assets} — so this file doesn't have to know how the bundle
@@ -29,8 +30,8 @@ namespace DuckDev\Loggedin\Admin;
 
 use DuckDev\Loggedin\Contracts\Singleton;
 use DuckDev\Loggedin\Plugin;
+use DuckDev\Reviews\Notice as Review_Notice;
 use WP_Session_Tokens;
-use WP_User;
 
 defined( 'WPINC' ) || die;
 
@@ -52,8 +53,16 @@ final class Admin {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
 		add_action( 'admin_init', array( $this, 'old_options_page' ) );
 		add_action( 'admin_init', array( $this, 'force_logout' ) );
-		add_action( 'admin_notices', array( $this, 'review_notice' ) );
-		add_action( 'admin_init', array( $this, 'review_action' ) );
+
+		Review_Notice::create(
+			Plugin::SLUG,
+			'Loggedin',
+			array(
+				'days'    => 7,
+				'domain'  => 'loggedin',
+				'screens' => array( 'users_page_' . Plugin::SLUG ),
+			)
+		)->register();
 	}
 
 	/**
@@ -132,17 +141,22 @@ final class Admin {
 	 * Render the React mount point.
 	 *
 	 * The bundle's entry (`assets/src/admin.js`) looks for
-	 * `#loggedin-admin` and bails silently if it's missing. The
-	 * outer `.wrap` keeps WordPress admin notices positioned the way
-	 * core expects; the inner `.loggedin-wrap` is the root selector
-	 * every plugin stylesheet hangs its rules under.
+	 * `#loggedin-admin` and bails silently if it's missing.
+	 * `.loggedin-wrap` is the root selector every plugin stylesheet
+	 * hangs its rules under.
+	 *
+	 * We intentionally skip WordPress's `.wrap` wrapper — its default
+	 * `10px 20px 0 2px` margin puts a visible gap around the plugin
+	 * shell that the design doesn't want. Admin notices don't need
+	 * `.wrap` either: `<AdminNoticeSlot />` inside the React tree
+	 * relocates them into the correct spot on mount.
 	 *
 	 * @since 3.0.0
 	 *
 	 * @return void
 	 */
 	public function render_page(): void {
-		echo '<div class="wrap"><div id="loggedin-admin" class="loggedin-wrap"></div></div>';
+		echo '<div id="loggedin-admin" class="loggedin-wrap"></div>';
 	}
 
 	/**
@@ -188,130 +202,5 @@ final class Admin {
 			?>
 		</p>
 		<?php
-	}
-
-	/**
-	 * Show the wp.org review-request notice on the plugin admin page.
-	 *
-	 * State machine:
-	 *
-	 *   - No `loggedin_rating_notice` option yet: this is the first
-	 *     visit on a new install. Schedule the notice to appear in a
-	 *     week and bail.
-	 *
-	 *   - The scheduled time is in the future: do nothing.
-	 *
-	 *   - The user already dismissed the notice (per-user meta): do
-	 *     nothing.
-	 *
-	 *   - Otherwise: render the notice.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return void|bool
-	 */
-	public function review_notice() {
-		$screen = get_current_screen();
-
-		if ( ! isset( $screen->id ) || 'users_page_' . Plugin::SLUG !== $screen->id ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return false;
-		}
-
-		$notice_time = get_option( 'loggedin_rating_notice' );
-
-		if ( empty( $notice_time ) ) {
-			// First view on a fresh install — schedule the prompt
-			// for a week out.
-			return add_option( 'loggedin_rating_notice', time() + WEEK_IN_SECONDS );
-		}
-
-		$current_user = wp_get_current_user();
-		$dismissed    = get_user_meta( $current_user->ID, 'loggedin_rating_notice_dismissed', true );
-
-		if ( (int) $notice_time <= time() && ! $dismissed ) {
-			$this->render_review_notice( $current_user );
-		}
-	}
-
-	/**
-	 * Render the notice markup.
-	 *
-	 * Three actions:
-	 *   - "Rate now" → opens the wp.org review form in a new tab.
-	 *   - "Maybe later" → re-schedules the notice for two weeks out.
-	 *   - "No thanks" → records a per-user dismissal so the notice
-	 *     never reappears for this account.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param WP_User $current_user The logged-in admin.
-	 */
-	private function render_review_notice( WP_User $current_user ): void {
-		$dismiss = wp_nonce_url( add_query_arg( 'loggedin_rating', 'dismiss' ), 'loggedin_rating' );
-		$later   = wp_nonce_url( add_query_arg( 'loggedin_rating', 'later' ), 'loggedin_rating' );
-		$rate    = 'https://wordpress.org/support/plugin/loggedin/reviews/?rate=5#new-post';
-		?>
-		<div class="notice notice-info is-dismissible">
-			<p>
-				<?php
-				printf(
-					// translators: %s the admin's display name.
-					esc_html__( 'Hi %s, are you enjoying Loggedin? Could you leave a quick rating on WordPress.org?', 'loggedin' ),
-					esc_html( $current_user->display_name )
-				);
-				?>
-			</p>
-			<p>
-				<a class="button button-primary" href="<?php echo esc_url( $rate ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Rate now', 'loggedin' ); ?></a>
-				&nbsp;
-				<a class="button" href="<?php echo esc_url( $later ); ?>"><?php esc_html_e( 'Maybe later', 'loggedin' ); ?></a>
-				&nbsp;
-				<a href="<?php echo esc_url( $dismiss ); ?>"><?php esc_html_e( 'No thanks', 'loggedin' ); ?></a>
-			</p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Process the review-notice action links.
-	 *
-	 * Hooked early enough that the redirect / option-write is in
-	 * place before the notice rendering runs on the same request.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return void
-	 */
-	public function review_action(): void {
-		if ( ! isset( $_REQUEST['loggedin_rating'] ) ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		if (
-			! isset( $_REQUEST['_wpnonce'] ) ||
-			! wp_verify_nonce( $_REQUEST['_wpnonce'], 'loggedin_rating' ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-		) {
-			return;
-		}
-
-		switch ( $_REQUEST['loggedin_rating'] ) {
-			case 'later':
-				// Push the prompt out two more weeks.
-				update_option( 'loggedin_rating_notice', time() + ( 2 * WEEK_IN_SECONDS ) );
-				break;
-
-			case 'dismiss':
-				// Hide forever for this user.
-				update_user_meta( get_current_user_id(), 'loggedin_rating_notice_dismissed', 1 );
-				break;
-		}
 	}
 }
