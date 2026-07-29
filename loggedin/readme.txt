@@ -4,7 +4,7 @@ Tags: concurrent login, login limit, prevent account sharing, user sessions, for
 Donate link: https://paypal.me/JoelCJ
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 3.0.2
+Stable tag: 3.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,7 @@ There's a one-click **Force Logout** panel in the admin to clear every session f
 * **Admin Force Logout** — Type a user ID, email, or username and clear every active session for that user in one click.
 * **Works with any session storage** — Uses the standard `WP_Session_Tokens` API. Stock WordPress, Redis, Memcached — all supported (the Logout Oldest mode needs the default user-meta storage; the other modes work everywhere).
 * **Customizable error message** — Override the message shown when a login is blocked, via a single filter.
+* **WP-CLI support** — Inspect and destroy user sessions and read or write settings from the command line: `wp loggedin sessions list <user>`, `wp loggedin sessions destroy <user>`, `wp loggedin settings set maximum 3`. Ideal for bulk operations, deploy scripts and headless installs.
 * **Built for developers** — Every decision passes through documented PHP hooks and filters. Override the cap per user / role / capability, exempt service accounts, audit force-logouts, or splice the plugin into your own auth pipeline. Full hook reference in the [developer docs](https://docs.duckdev.com/loggedin/developer-docs).
 * **Lightweight** — No cron, no background polling, no remote calls. The whole plugin runs at the moment a login happens.
 * **Translation-ready** — Loaded with the WordPress i18n APIs; contribute translations on WordPress.org.
@@ -63,6 +64,7 @@ Extend Loggedin with these official [add-ons](https://duckdev.com/addons/loggedi
 * [Getting started](https://docs.duckdev.com/loggedin/getting-started)
 * [General settings](https://docs.duckdev.com/loggedin/general-settings)
 * [Force Logout (Manage Sessions)](https://docs.duckdev.com/loggedin/manage-sessions)
+* [WP-CLI commands](https://docs.duckdev.com/loggedin/wp-cli)
 * [Add-ons overview](https://docs.duckdev.com/loggedin/addons/)
 * [Developer docs — hooks, filters, REST](https://docs.duckdev.com/loggedin/developer-docs)
 
@@ -125,13 +127,13 @@ The duration of a WordPress login session is controlled by WordPress, not Logged
 
 Customize the duration with the standard `auth_cookie_expiration` filter:
 
-<pre lang="php">
+```php
 function custom_auth_cookie_expiration( $expire ) {
     return MONTH_IN_SECONDS; // 30 days for every login.
 }
 
 add_filter( 'auth_cookie_expiration', 'custom_auth_cookie_expiration' );
-</pre>
+```
 
 = What if a user has reached the limit but doesn't know which devices are active? =
 
@@ -145,6 +147,12 @@ Administrators can force-logout every session for the user from the dashboard:
 
 Yes for the **Logout All** and **Block New** modes — both go through the standard `WP_Session_Tokens` API, which respects whatever storage backend WordPress is configured to use. The **Logout Oldest** mode needs the default user-meta storage because the WP API doesn't expose a "drop the oldest" primitive; pick Logout All instead if your sessions live elsewhere.
 
+= Does Loggedin support WP-CLI? =
+
+Yes, since 3.1.0. Every command lives under `wp loggedin` — `wp loggedin sessions` lists, counts and destroys a user's active sessions, and `wp loggedin settings` reads and writes the plugin settings. Destructive commands prompt for confirmation unless you pass `--yes`.
+
+See the [WP-CLI documentation](https://docs.duckdev.com/loggedin/wp-cli) for the full command reference, options and scripting examples, or run `wp help loggedin` in your terminal.
+
 = Is Loggedin GDPR-compliant? =
 
 Loggedin stores no personal data itself. It only counts and manipulates WordPress session tokens that already exist in your database via the standard `WP_Session_Tokens` API. No external services are called, no telemetry is sent.
@@ -157,11 +165,11 @@ No. The work Loggedin does on each login is one query for the user's existing se
 
 Yes, via the `loggedin_error_message` filter:
 
-<pre lang="php">
+```php
 add_filter( 'loggedin_error_message', function ( $message ) {
     return 'Your account is already signed in elsewhere. Sign out from another device to continue.';
 } );
-</pre>
+```
 
 See the [developer docs](https://docs.duckdev.com/loggedin/developer-docs) for every filter and action the plugin exposes.
 
@@ -171,6 +179,14 @@ See the [developer docs](https://docs.duckdev.com/loggedin/developer-docs) for e
 2. **Force Logout** — admin Force Logout panel.
 
 == Changelog ==
+
+= 3.1.0 =
+* New: WP-CLI support — manage Loggedin from the command line with `wp loggedin sessions` (list, count, destroy) and `wp loggedin settings` (list, get, set). Run `wp help loggedin` for the full reference.
+* New: `wp loggedin sessions destroy <user> --token=<hash>` signs a user out of a single device instead of all of them.
+* New: `loggedin_cli_init` action so add-ons can register their own subcommands under the `wp loggedin` namespace.
+* New: `loggedin_destroy_session` action fired when an individual session is destroyed.
+* Improve: The CLI refuses to write a setting the sanitizer would reject, so a typo can no longer silently reset your login logic to the default.
+* Improve: CLI commands are only loaded on WP-CLI requests — a normal page load doesn't pay for them.
 
 = 3.0.2 =
 * New: Review-request notice restored, powered by the `duckdev/wp-review-notice` library and scoped to the Loggedin settings screen with a 7-day delay.
@@ -196,22 +212,9 @@ See the [developer docs](https://docs.duckdev.com/loggedin/developer-docs) for e
 * Improve: Comprehensive sanitisation pass across every input and option write path.
 * Improve: PHP 7.4 is now the minimum supported version.
 
-= 2.0.4 =
-* Improve: Review-notice scheduling now respects the dismiss state on every admin page load.
-* Fix: Invalid nonce action prevented review notices from being dismissed.
-
-= 2.0.3 =
-* Improve: Removed leftover debug code that shipped accidentally in 2.0.2.
-
 For the full release history, see the [changelog](https://docs.duckdev.com/loggedin/changelog).
 
 == Upgrade Notice ==
 
-= 3.0.2 =
-Brings back the wp.org review prompt (now scoped to the Loggedin settings screen), migrates any prior dismiss state so existing users are not re-prompted, and tightens the admin layout so notices sit inside the page column.
-
-= 3.0.1 =
-A maintenance release that fixes the v2→v3 settings migration and adds the JS extension points the new Active Sessions addon hooks into.
-
-= 3.0.0 =
-A major release with a brand-new React admin, REST API, add-ons catalogue with in-dashboard license management and a documented hook surface. Back up your database before updating.
+= 3.1.0 =
+Adds WP-CLI support — list, count and destroy user sessions and read or write plugin settings from the command line. No changes to existing behaviour.

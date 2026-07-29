@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'loggedin/loggedin',
-        'pretty_version' => '3.0.2',
-        'version' => '3.0.2.0',
+        'pretty_version' => '3.1.0',
+        'version' => '3.1.0.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -29,8 +29,8 @@
             'dev_requirement' => false,
         ),
         'loggedin/loggedin' => array(
-            'pretty_version' => '3.0.2',
-            'version' => '3.0.2.0',
+            'pretty_version' => '3.1.0',
+            'version' => '3.1.0.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
