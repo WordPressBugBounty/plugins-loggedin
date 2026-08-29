@@ -6,6 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'DuckDev\\Reviews\\' => array($vendorDir . '/duckdev/wp-review-notice/src'),
-    'DuckDev\\Freemius\\' => array($vendorDir . '/duckdev/freemius-plugin-licensing/src'),
+    'FoxeLabs\\Reviews\\' => array($vendorDir . '/foxelabs/wp-review-notice/src'),
+    'FoxeLabs\\Freemius\\' => array($vendorDir . '/foxelabs/wp-freemius-client/src'),
 );

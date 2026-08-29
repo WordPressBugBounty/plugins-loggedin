@@ -1,18 +1,18 @@
 {
     "packages": [
         {
-            "name": "duckdev/freemius-plugin-licensing",
-            "version": "2.0.2",
-            "version_normalized": "2.0.2.0",
+            "name": "foxelabs/wp-freemius-client",
+            "version": "3.0.0",
+            "version_normalized": "3.0.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/duckdev/freemius-plugin-licensing.git",
-                "reference": "1a5006b94d8397a232346978427049748c56b554"
+                "url": "https://github.com/foxelabs/wp-freemius-client.git",
+                "reference": "b7ca5ab03d70453202379dd8b724250fa63a0c09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/duckdev/freemius-plugin-licensing/zipball/1a5006b94d8397a232346978427049748c56b554",
-                "reference": "1a5006b94d8397a232346978427049748c56b554",
+                "url": "https://api.github.com/repos/foxelabs/wp-freemius-client/zipball/b7ca5ab03d70453202379dd8b724250fa63a0c09",
+                "reference": "b7ca5ab03d70453202379dd8b724250fa63a0c09",
                 "shasum": ""
             },
             "require": {
@@ -26,12 +26,12 @@
                 "squizlabs/php_codesniffer": "^3.10",
                 "wp-coding-standards/wpcs": "^3.1"
             },
-            "time": "2026-06-26T04:35:35+00:00",
+            "time": "2026-08-04T13:12:14+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "DuckDev\\Freemius\\": "src/"
+                    "FoxeLabs\\Freemius\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -42,12 +42,12 @@
                 {
                     "name": "Joel James",
                     "email": "me@joelsays.com",
-                    "homepage": "https://duckdev.com",
+                    "homepage": "https://foxelabs.com",
                     "role": "Developer"
                 }
             ],
-            "description": "Lite version of the Freemius SDK for managing plugin licensing and updates using Freemius APIs, specifically developed for use with Duck Dev plugins.",
-            "homepage": "https://github.com/duckdev/freemius-plugin-licensing",
+            "description": "Lite version of the Freemius SDK for managing plugin licensing and updates using Freemius APIs, specifically developed for use with Foxe Labs plugins.",
+            "homepage": "https://github.com/foxelabs/wp-freemius-client",
             "keywords": [
                 "freemius",
                 "licensing",
@@ -55,24 +55,24 @@
                 "updates"
             ],
             "support": {
-                "issues": "https://github.com/duckdev/freemius-plugin-licensing/issues",
-                "source": "https://github.com/duckdev/freemius-plugin-licensing/tree/v2.0.2"
+                "issues": "https://github.com/foxelabs/wp-freemius-client/issues",
+                "source": "https://github.com/foxelabs/wp-freemius-client/tree/v3.0.0"
             },
-            "install-path": "../duckdev/freemius-plugin-licensing"
+            "install-path": "../foxelabs/wp-freemius-client"
         },
         {
-            "name": "duckdev/wp-review-notice",
-            "version": "2.0.0",
-            "version_normalized": "2.0.0.0",
+            "name": "foxelabs/wp-review-notice",
+            "version": "3.0.0",
+            "version_normalized": "3.0.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/duckdev/wp-review-notice.git",
-                "reference": "ff2aa098820d0e6d9b0b6095770e0775cb1e6477"
+                "url": "https://github.com/foxelabs/wp-review-notice.git",
+                "reference": "fcce2dbc83e131116b0ee2cf87946612bb10350e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/duckdev/wp-review-notice/zipball/ff2aa098820d0e6d9b0b6095770e0775cb1e6477",
-                "reference": "ff2aa098820d0e6d9b0b6095770e0775cb1e6477",
+                "url": "https://api.github.com/repos/foxelabs/wp-review-notice/zipball/fcce2dbc83e131116b0ee2cf87946612bb10350e",
+                "reference": "fcce2dbc83e131116b0ee2cf87946612bb10350e",
                 "shasum": ""
             },
             "require": {
@@ -86,12 +86,12 @@
                 "squizlabs/php_codesniffer": "^3.10",
                 "wp-coding-standards/wpcs": "^3.1"
             },
-            "time": "2026-07-01T07:08:23+00:00",
+            "time": "2026-08-04T16:42:01+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "DuckDev\\Reviews\\": "src/"
+                    "FoxeLabs\\Reviews\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -102,12 +102,12 @@
                 {
                     "name": "Joel James",
                     "email": "me@joelsays.com",
-                    "homepage": "https://duckdev.com",
+                    "homepage": "https://foxelabs.com",
                     "role": "Developer"
                 }
             ],
             "description": "Simple library to gently ask for a wp.org plugin review after a few days of plugin usage, with swappable storage drivers and a testable, DI-friendly architecture.",
-            "homepage": "https://github.com/duckdev/wp-review-notice",
+            "homepage": "https://github.com/foxelabs/wp-review-notice",
             "keywords": [
                 "admin",
                 "notices",
@@ -115,10 +115,10 @@
                 "wordpress"
             ],
             "support": {
-                "issues": "https://github.com/duckdev/wp-review-notice/issues/",
-                "source": "https://github.com/duckdev/wp-review-notice/tree/v2.0.0"
+                "issues": "https://github.com/foxelabs/wp-review-notice/issues/",
+                "source": "https://github.com/foxelabs/wp-review-notice/tree/v3.0.0"
             },
-            "install-path": "../duckdev/wp-review-notice"
+            "install-path": "../foxelabs/wp-review-notice"
         }
     ],
     "dev": false,

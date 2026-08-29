@@ -1,0 +1,43 @@
+{
+  "name": "loggedin/loggedin",
+  "description": "Limit an account to a specific number of simultaneous logins across all devices.",
+  "version": "3.2.0",
+  "homepage": "https://wordpress.org/plugins/loggedin/",
+  "license": "GPL-2.0+",
+  "type": "wordpress-plugin",
+  "optimize-autoloader": true,
+  "config": {
+    "platform": {
+      "php": "7.4"
+    },
+    "sort-packages": true,
+    "allow-plugins": {
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "autoload": {
+    "classmap": [
+      "includes/"
+    ]
+  },
+  "require": {
+    "php": ">=7.4",
+    "foxelabs/wp-freemius-client": "^3.0",
+    "foxelabs/wp-review-notice": "^3.0"
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "yoast/phpunit-polyfills": "^2.0",
+    "phpunit/phpunit": "^9.6"
+  },
+  "scripts": {
+    "lint": "phpcs",
+    "lint:fix": "phpcbf",
+    "test": "phpunit"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

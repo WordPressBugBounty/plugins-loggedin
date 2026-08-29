@@ -7,30 +7,27 @@
  *
  *   - Registering the menu item under Users → Loggedin and emitting
  *     the React mount point div.
- *   - The legacy section on Settings → General that deep-links to
- *     the new admin page (kept for users who bookmarked the old
- *     location).
  *   - The "force logout this user from all devices" action handler
  *     (link rendered by addon code or admin pages outside this
  *     plugin).
  *   - The review-request notice (delegated to the
- *     `duckdev/wp-review-notice` library and scoped to the plugin
+ *     `foxelabs/wp-review-notice` library and scoped to the plugin
  *     settings screen).
  *
  * Asset enqueueing for the React bundle lives in a sibling class —
  * {@see Assets} — so this file doesn't have to know how the bundle
  * is built or what dependencies it declares.
  *
- * @package DuckDev\Loggedin\Admin
+ * @package FoxeLabs\Loggedin\Admin
  */
 
 declare( strict_types = 1 );
 
-namespace DuckDev\Loggedin\Admin;
+namespace FoxeLabs\Loggedin\Admin;
 
-use DuckDev\Loggedin\Contracts\Singleton;
-use DuckDev\Loggedin\Plugin;
-use DuckDev\Reviews\Notice as Review_Notice;
+use FoxeLabs\Loggedin\Contracts\Singleton;
+use FoxeLabs\Loggedin\Plugin;
+use FoxeLabs\Reviews\Notice as Review_Notice;
 use WP_Session_Tokens;
 
 defined( 'WPINC' ) || die;
@@ -51,7 +48,6 @@ final class Admin {
 	 */
 	protected function init(): void {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
-		add_action( 'admin_init', array( $this, 'old_options_page' ) );
 		add_action( 'admin_init', array( $this, 'force_logout' ) );
 
 		Review_Notice::create(
@@ -157,50 +153,5 @@ final class Admin {
 	 */
 	public function render_page(): void {
 		echo '<div id="loggedin-admin" class="loggedin-wrap"></div>';
-	}
-
-	/**
-	 * Add a deprecation section on Settings → General.
-	 *
-	 * Pre-2.0 versions registered the plugin's options on the core
-	 * General screen. Users who still navigate there see a one-line
-	 * pointer to the new location instead of a broken / empty
-	 * section.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.0.0 Kept only as a navigation aid.
-	 *
-	 * @return void
-	 */
-	public function old_options_page(): void {
-		add_settings_section(
-			'loggedin_settings',
-			// translators: %s lock icon.
-			sprintf( __( '%s Loggedin Settings', 'loggedin' ), '<span class="dashicons dashicons-lock"></span>' ),
-			array( $this, 'loggedin_old_settings' ),
-			'general'
-		);
-	}
-
-	/**
-	 * Render the deep-link pointer body.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return void
-	 */
-	public function loggedin_old_settings(): void {
-		?>
-		<p class="description">
-			<?php
-			printf(
-				// translators: %1$s opening anchor, %2$s closing anchor.
-				esc_attr__( 'Loggedin settings have been relocated. %1$sClick here%2$s to access the new settings page.', 'loggedin' ),
-				'<a href="' . esc_url( admin_url( 'users.php?page=' . Plugin::SLUG ) ) . '">',
-				'</a>'
-			);
-			?>
-		</p>
-		<?php
 	}
 }

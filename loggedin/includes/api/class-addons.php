@@ -3,9 +3,7 @@
  * Addons REST controller.
  *
  * Surfaces the addon catalogue and per-addon license operations to
- * the React Addons tab. Same route shape as the 404-to-301 plugin so
- * the React store can be lifted between the two projects without
- * rewiring paths:
+ * the React Addons tab:
  *
  *   GET    /loggedin/v1/addons                 — list catalogue.
  *   POST   /loggedin/v1/addons/refresh         — bust SDK cache.
@@ -16,19 +14,19 @@
  * field on every catalogue row.
  *
  * The controller is a thin HTTP wrapper; all domain logic lives in
- * {@see \DuckDev\Loggedin\Addons\Catalog} and
- * {@see \DuckDev\Loggedin\Addons\Addons}.
+ * {@see \FoxeLabs\Loggedin\Addons\Catalog} and
+ * {@see \FoxeLabs\Loggedin\Addons\Addons}.
  *
- * @package DuckDev\Loggedin\Api
+ * @package FoxeLabs\Loggedin\Api
  */
 
 declare( strict_types = 1 );
 
-namespace DuckDev\Loggedin\Api;
+namespace FoxeLabs\Loggedin\Api;
 
-use DuckDev\Loggedin\Addons\Addons as Addons_Module;
-use DuckDev\Loggedin\Addons\Catalog;
-use DuckDev\Loggedin\Contracts\Singleton;
+use FoxeLabs\Loggedin\Addons\Addons as Addons_Module;
+use FoxeLabs\Loggedin\Addons\Catalog;
+use FoxeLabs\Loggedin\Contracts\Singleton;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -114,8 +112,7 @@ final class Addons extends Endpoint {
 	 * GET /addons — shaped catalogue.
 	 *
 	 * Uses the SDK's day-long cache. Response body shape is
-	 * `{ items: [...] }`, matching what 404-to-301 returns so the
-	 * React store can be a near-direct copy.
+	 * `{ items: [...] }`.
 	 *
 	 * @since 3.0.0
 	 *

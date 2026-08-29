@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'loggedin/loggedin',
-        'pretty_version' => '3.1.0',
-        'version' => '3.1.0.0',
+        'pretty_version' => '3.2.0',
+        'version' => '3.2.0.0',
         'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
@@ -10,27 +10,27 @@
         'dev' => false,
     ),
     'versions' => array(
-        'duckdev/freemius-plugin-licensing' => array(
-            'pretty_version' => '2.0.2',
-            'version' => '2.0.2.0',
-            'reference' => '1a5006b94d8397a232346978427049748c56b554',
+        'foxelabs/wp-freemius-client' => array(
+            'pretty_version' => '3.0.0',
+            'version' => '3.0.0.0',
+            'reference' => 'b7ca5ab03d70453202379dd8b724250fa63a0c09',
             'type' => 'library',
-            'install_path' => __DIR__ . '/../duckdev/freemius-plugin-licensing',
+            'install_path' => __DIR__ . '/../foxelabs/wp-freemius-client',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'duckdev/wp-review-notice' => array(
-            'pretty_version' => '2.0.0',
-            'version' => '2.0.0.0',
-            'reference' => 'ff2aa098820d0e6d9b0b6095770e0775cb1e6477',
+        'foxelabs/wp-review-notice' => array(
+            'pretty_version' => '3.0.0',
+            'version' => '3.0.0.0',
+            'reference' => 'fcce2dbc83e131116b0ee2cf87946612bb10350e',
             'type' => 'library',
-            'install_path' => __DIR__ . '/../duckdev/wp-review-notice',
+            'install_path' => __DIR__ . '/../foxelabs/wp-review-notice',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'loggedin/loggedin' => array(
-            'pretty_version' => '3.1.0',
-            'version' => '3.1.0.0',
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
             'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
