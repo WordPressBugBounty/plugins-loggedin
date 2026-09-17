@@ -4,7 +4,7 @@ Tags: concurrent login, login limit, prevent account sharing, session management
 Donate link: https://paypal.me/JoelCJ
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ Loggedin watches every login attempt:
 2. Compares that count to the limit you've configured.
 3. Applies the rule you've picked — silently make room for the new login, or reject the new login with an error on wp-login.
 
-There's a one-click **Force Logout** panel in the admin to clear every session for a specific user when someone's locked out by the cap and can't reach their other devices. Identify the user by ID, email, or username — all three work.
+There's a one-click **Force Logout** panel in the admin to clear every session for a specific user when someone's locked out by the cap and can't reach their other devices. Identify the user by ID, email, or username — all three work. Need a clean slate instead? **Logout All Users** signs out every account on the site in one click — instantly, even with thousands of users — while your own session stays active.
 
 ### Who it's for
 
@@ -46,9 +46,10 @@ There's a one-click **Force Logout** panel in the admin to clear every session f
 * **Global concurrent-login limit** — Pick any number from 1 upwards as the per-user cap.
 * **Three built-in modes** — Logout Oldest (kick the user's oldest device, keep the rest), Logout All (the new login becomes the only active session), or Block New (reject the login and show an error on wp-login).
 * **Admin Force Logout** — Type a user ID, email, or username and clear every active session for that user in one click.
+* **Logout All Users** — Sign out every user on the site at once. Instant at any scale — no per-user loops, no timeouts — and the admin who clicks the button stays logged in.
 * **Works with any session storage** — Uses the standard `WP_Session_Tokens` API. Stock WordPress, Redis, Memcached — all supported (the Logout Oldest mode needs the default user-meta storage; the other modes work everywhere).
 * **Customizable error message** — Override the message shown when a login is blocked, via a single filter.
-* **WP-CLI support** — Inspect and destroy user sessions and read or write settings from the command line: `wp loggedin sessions list <user>`, `wp loggedin sessions destroy <user>`, `wp loggedin settings set maximum 3`. Ideal for bulk operations, deploy scripts and headless installs.
+* **WP-CLI support** — Inspect and destroy user sessions and read or write settings from the command line: `wp loggedin sessions list <user>`, `wp loggedin sessions destroy <user>`, `wp loggedin sessions destroy-all`, `wp loggedin settings set maximum 3`. Ideal for bulk operations, deploy scripts and headless installs.
 * **Built for developers** — Every decision passes through documented PHP hooks and filters. Override the cap per user / role / capability, exempt service accounts, audit force-logouts, or splice the plugin into your own auth pipeline. Full hook reference in the [developer docs](https://docs.foxelabs.com/software/loggedin/developer-docs).
 * **Lightweight** — No cron, no background polling, no remote calls. The whole plugin runs at the moment a login happens.
 * **Translation-ready** — Loaded with the WordPress i18n APIs; contribute translations on WordPress.org.
@@ -58,6 +59,7 @@ There's a one-click **Force Logout** panel in the admin to clear every session f
 Extend Loggedin with these official [add-ons](https://foxelabs.com/software/plugins/loggedin):
 
 * **[Active Sessions](https://foxelabs.com/software/plugins/loggedin/active-sessions)** — See exactly who's signed in right now, drill into each device per user, and sign out a single session — or every session — in one click.
+* **[Auto Logout](https://foxelabs.com/software/plugins/loggedin/auto-logout)** — Sign users out automatically after a period of inactivity. Set an idle timeout, warn users before the session ends, and keep unattended machines from staying signed in.
 * **[Limit Per User](https://foxelabs.com/software/plugins/loggedin/limit-per-user)** — Override the global session cap for an individual user account directly from their WordPress profile. Perfect for tiered access or trusted-staff exemptions.
 * **[Limit Per Role](https://foxelabs.com/software/plugins/loggedin/limit-per-role)** — Set a different concurrent-session cap per WordPress role. Give administrators more headroom while keeping subscribers tight, or vice versa.
 * **[Real-time Logout](https://foxelabs.com/software/plugins/loggedin/realtime-logout)** — Detect logouts in near-real-time. When Loggedin terminates a session, the user's other open tabs reload to wp-login automatically — no waiting for the next page click.
@@ -95,7 +97,7 @@ It manages the sessions WordPress already creates, rather than replacing WordPre
 * **Force logout** every session for any user, from the admin or from WP-CLI.
 * **Inspect** a user's active sessions — login time, expiry, IP and device — via `wp loggedin sessions list`.
 
-For a live, sortable view of every signed-in user across the site, with per-device detail and one-click sign-out, add the [Active Sessions](https://foxelabs.com/software/plugins/loggedin/active-sessions) add-on. Idle timeouts and login alerts are on the roadmap as add-ons too.
+For a live, sortable view of every signed-in user across the site, with per-device detail and one-click sign-out, add the [Active Sessions](https://foxelabs.com/software/plugins/loggedin/active-sessions) add-on. To sign idle users out automatically, add the [Auto Logout](https://foxelabs.com/software/plugins/loggedin/auto-logout) add-on. Login alerts are on the roadmap as an add-on too.
 
 If all you need is to cap concurrent logins and stop account sharing, the free plugin does that on its own — no add-on required.
 
@@ -114,6 +116,10 @@ Yes, with the official [Limit Per Role add-on](https://foxelabs.com/software/plu
 = Can I set a different limit for one specific user? =
 
 Yes, with the official [Limit Per User add-on](https://foxelabs.com/software/plugins/loggedin/limit-per-user). It adds a field to the WordPress profile screen so you can override the global cap on a per-user basis — useful for shared editorial accounts, executive users, or anyone who legitimately needs more sessions than your default.
+
+= Can I log users out automatically after they go idle? =
+
+Yes, with the official [Auto Logout add-on](https://foxelabs.com/software/plugins/loggedin/auto-logout). Set an inactivity timeout and idle users are signed out on their own, with an optional warning shown before the session ends — useful for shared workstations and anywhere an unattended browser shouldn't stay signed in.
 
 = Will current users be logged out when I install or change the limit? =
 
@@ -158,6 +164,10 @@ Administrators can force-logout every session for the user from the dashboard:
 2. Scroll to the **Force Logout** panel at the bottom of the Settings tab.
 3. Enter the user's ID, email address, or username and click **Force Logout**. All active sessions for that user are terminated immediately.
 
+= Can I log out every user at once? =
+
+Yes. The **Logout All Users** button in the Force Logout panel signs out every account on the site — useful after a password-reset campaign, a suspected credential leak, or before decommissioning a membership. It completes instantly regardless of user count because it doesn't loop through users: a single site-wide timestamp invalidates every session created before it, and each stale session is rejected on its next request. Your own session survives, so you won't be dumped to the login screen. Also available as `wp loggedin sessions destroy-all` on WP-CLI.
+
 = Does Loggedin work with Redis / Memcached / external session storage? =
 
 Yes for the **Logout All** and **Block New** modes — both go through the standard `WP_Session_Tokens` API, which respects whatever storage backend WordPress is configured to use. The **Logout Oldest** mode needs the default user-meta storage because the WP API doesn't expose a "drop the oldest" primitive; pick Logout All instead if your sessions live elsewhere.
@@ -194,6 +204,13 @@ See the [developer docs](https://docs.foxelabs.com/software/loggedin/developer-d
 2. **Force Logout** — admin Force Logout panel.
 
 == Changelog ==
+
+= 3.3.0 =
+* New: **Logout All Users** — sign out every user on the site in one click from the Force Logout panel, with a confirmation dialog. Instant at any user count, and the admin who triggers it stays logged in.
+* New: `wp loggedin sessions destroy-all` — the same site-wide logout from WP-CLI.
+* New: REST endpoint `POST /loggedin/v1/sessions/destroy-all` backing the admin button.
+* New: `loggedin_logout_all_users` action fired when a site-wide logout is triggered, and `loggedin_session_invalidated` action fired for each stale session as it is rejected.
+* Improve: The site-wide logout goes through the standard `WP_Session_Tokens` API, so it works with any session storage backend.
 
 = 3.2.0 =
 * Improve: Faster settings reads — the plugin's settings are now built once per request instead of on every read, cutting repeat work on each login and admin page load.
@@ -240,5 +257,5 @@ For the full release history, see the [changelog](https://docs.foxelabs.com/soft
 
 == Upgrade Notice ==
 
-= 3.1.0 =
-Adds WP-CLI support — list, count and destroy user sessions and read or write plugin settings from the command line. No changes to existing behaviour.
+= 3.3.0 =
+Adds Logout All Users — sign out every user on the site at once, instantly at any user count, from the admin or WP-CLI. No changes to existing behaviour.

@@ -59,6 +59,7 @@ class ComposerStaticInit0ccd1252ad7764c793e490dd2e571496
         'FoxeLabs\\Loggedin\\Cli\\Settings_Command' => __DIR__ . '/../..' . '/includes/cli/class-settings-command.php',
         'FoxeLabs\\Loggedin\\Contracts\\Singleton' => __DIR__ . '/../..' . '/includes/contracts/trait-singleton.php',
         'FoxeLabs\\Loggedin\\Core' => __DIR__ . '/../..' . '/includes/class-core.php',
+        'FoxeLabs\\Loggedin\\Front\\Logout_Epoch' => __DIR__ . '/../..' . '/includes/front/class-logout-epoch.php',
         'FoxeLabs\\Loggedin\\Front\\Session_Guard' => __DIR__ . '/../..' . '/includes/front/class-session-guard.php',
         'FoxeLabs\\Loggedin\\Plugin' => __DIR__ . '/../..' . '/includes/class-plugin.php',
         'FoxeLabs\\Loggedin\\Setup\\Settings' => __DIR__ . '/../..' . '/includes/setup/class-settings.php',

@@ -39,6 +39,7 @@ return array(
     'FoxeLabs\\Loggedin\\Cli\\Settings_Command' => $baseDir . '/includes/cli/class-settings-command.php',
     'FoxeLabs\\Loggedin\\Contracts\\Singleton' => $baseDir . '/includes/contracts/trait-singleton.php',
     'FoxeLabs\\Loggedin\\Core' => $baseDir . '/includes/class-core.php',
+    'FoxeLabs\\Loggedin\\Front\\Logout_Epoch' => $baseDir . '/includes/front/class-logout-epoch.php',
     'FoxeLabs\\Loggedin\\Front\\Session_Guard' => $baseDir . '/includes/front/class-session-guard.php',
     'FoxeLabs\\Loggedin\\Plugin' => $baseDir . '/includes/class-plugin.php',
     'FoxeLabs\\Loggedin\\Setup\\Settings' => $baseDir . '/includes/setup/class-settings.php',
