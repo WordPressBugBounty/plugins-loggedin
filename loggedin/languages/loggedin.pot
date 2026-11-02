@@ -2,21 +2,21 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Loggedin - Session Manager, Limit Concurrent Logins & Force Logout 3.3.1\n"
+"Project-Id-Version: Loggedin - Session Manager: Limit Concurrent Logins & Auto Logout 3.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/loggedin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-30T11:17:30+00:00\n"
+"POT-Creation-Date: 2026-11-02T09:55:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: loggedin\n"
 
 #. Plugin Name of the plugin
 #: loggedin.php
-msgid "Loggedin - Session Manager, Limit Concurrent Logins & Force Logout"
+msgid "Loggedin - Session Manager: Limit Concurrent Logins & Auto Logout"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: loggedin.php
-msgid "Limit an account to a specific number of simultaneous logins across all devices."
+msgid "Session and login manager. Limit concurrent logins, stop account sharing, auto logout idle users and force logout any device."
 msgstr ""
 
 #. Author of the plugin
@@ -39,438 +39,1015 @@ msgstr ""
 msgid "https://foxelabs.com/"
 msgstr ""
 
-#: includes/addons/class-addons.php:189
-#: includes/addons/class-addons.php:213
+#: src/Addons/Addons.php:175
+#: src/Addons/Addons.php:199
 msgid "Addon not initialized."
 msgstr ""
 
+#. translators: 1: Add-on name, 2: Installed version, 3: First version that fits the new screen.
+#: src/Addons/OutdatedAddons.php:208
+#, php-format
+msgid "%1$s %2$s: update to %3$s or later."
+msgstr ""
+
+#: src/Addons/OutdatedAddons.php:218
+msgid "A Loggedin add-on needs an update."
+msgid_plural "Some Loggedin add-ons need an update."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Addons/OutdatedAddons.php:219
+msgid "It was made for the old settings screen. It still works, but its settings may look out of place until it is updated."
+msgid_plural "They were made for the old settings screen. They still work, but their settings may look out of place until they are updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Addons/OutdatedAddons.php:223
+msgid "Go to Updates"
+msgstr ""
+
+#: src/Admin/Admin.php:116
+msgid "Sorry, you are not allowed to sign users out."
+msgstr ""
+
 #. translators: %s user login of the user being logged out.
-#: includes/admin/class-admin.php:95
+#: src/Admin/Admin.php:132
 #, php-format
 msgid "The user \"%s\" was forcefully logged out from all devices."
 msgstr ""
 
 #. translators: %d the invalid user id supplied in the request.
-#: includes/admin/class-admin.php:106
+#: src/Admin/Admin.php:143
 #, php-format
 msgid "Invalid user ID: %d"
 msgstr ""
 
-#. translators: %s lock icon.
-#: includes/admin/class-admin.php:127
-#, php-format
-msgid "%s Loggedin Settings"
+#: src/Admin/Admin.php:164
+#: src/Admin/Assets.php:203
+#: assets/src/admin/pages/help.js:54
+msgid "Loggedin"
 msgstr ""
 
 #. translators: %s lock icon.
-#: includes/admin/class-admin.php:129
+#: src/Admin/Admin.php:166
 #, php-format
 msgid "%s Loggedin"
 msgstr ""
 
-#: includes/admin/class-assets.php:175
-msgid "Loggedin"
+#: src/Admin/Admin.php:210
+msgid "The Loggedin settings need JavaScript. Turn it on in your browser to change them."
 msgstr ""
 
-#: includes/admin/class-assets.php:206
-msgid "Logout Oldest"
+#: src/Admin/ExemptAdminsNotice.php:156
+msgid "Stop limiting administrators?"
 msgstr ""
 
-#: includes/admin/class-assets.php:207
-msgid "When the concurrent login limit is reached, a new login will automatically end the single oldest active session. This feature works only with user meta session storage."
+#: src/Admin/ExemptAdminsNotice.php:157
+msgid "Loggedin can leave users who manage the site out of the login limit, so an administrator is never locked out of their own site. It is on for new sites and stayed off here when you updated."
 msgstr ""
 
-#: includes/admin/class-assets.php:210
-msgid "Logout All"
+#: src/Admin/ExemptAdminsNotice.php:160
+#: assets/src/admin/pages/lockout.js:52
+msgid "Don’t limit administrators"
 msgstr ""
 
-#: includes/admin/class-assets.php:211
-msgid "When the concurrent login limit is reached, a new login will automatically terminate all previously active sessions."
-msgstr ""
-
-#: includes/admin/class-assets.php:214
-msgid "Block New"
-msgstr ""
-
-#: includes/admin/class-assets.php:215
-msgid "If the concurrent login limit is reached, do not allow new logins. Users must then wait for existing login sessions to expire."
-msgstr ""
-
-#: includes/api/class-addons.php:174
-#: includes/api/class-addons.php:218
-msgid "Licensing is not configured."
-msgstr ""
-
-#: includes/api/class-sessions.php:90
-msgid "User id, email, or login."
-msgstr ""
-
-#: includes/api/class-sessions.php:118
-msgid "Enter a user id, email, or username."
-msgstr ""
-
-#. translators: %s the identifier supplied in the request.
-#: includes/api/class-sessions.php:130
-#, php-format
-msgid "No user found matching \"%s\"."
+#: src/Admin/ExemptAdminsNotice.php:165
+msgid "Keep limiting them"
 msgstr ""
 
 #. translators: %s: user login.
-#: includes/cli/class-sessions-command.php:116
-#: includes/cli/class-sessions-command.php:229
+#: src/Cli/SessionsCommand.php:130
+#: src/Cli/SessionsCommand.php:243
 #, php-format
 msgid "No active sessions for %s."
 msgstr ""
 
-#: includes/cli/class-sessions-command.php:215
+#: src/Cli/SessionsCommand.php:229
 msgid "--token was passed without a value. Drop the flag entirely to destroy all sessions for the user."
 msgstr ""
 
 #. translators: 1: session count, 2: user login.
-#: includes/cli/class-sessions-command.php:240
+#: src/Cli/SessionsCommand.php:254
 #, php-format
 msgid "Are you sure you want to destroy %1$d session(s) for %2$s?"
 msgstr ""
 
 #. translators: 1: session count, 2: user login.
-#: includes/cli/class-sessions-command.php:255
+#: src/Cli/SessionsCommand.php:266
 #, php-format
 msgid "Destroyed %1$d session(s) for %2$s."
 msgstr ""
 
-#: includes/cli/class-sessions-command.php:299
+#: src/Cli/SessionsCommand.php:310
 msgid "Are you sure you want to log out every user on this site?"
 msgstr ""
 
-#: includes/cli/class-sessions-command.php:305
+#: src/Cli/SessionsCommand.php:316
 msgid "All users will be logged out on their next request."
 msgstr ""
 
-#: includes/cli/class-sessions-command.php:327
+#: src/Cli/SessionsCommand.php:339
 msgid "Destroying a single session requires the default session storage. Drop --token to destroy all sessions for the user instead."
 msgstr ""
 
 #. translators: 1: token hash, 2: user login.
-#: includes/cli/class-sessions-command.php:337
+#: src/Cli/SessionsCommand.php:347
 #, php-format
 msgid "No session matching token \"%1$s\" for %2$s."
 msgstr ""
 
 #. translators: %s: user login.
-#: includes/cli/class-sessions-command.php:347
+#: src/Cli/SessionsCommand.php:357
 #, php-format
 msgid "Are you sure you want to destroy this session for %s?"
 msgstr ""
 
 #. translators: %s: user login.
-#: includes/cli/class-sessions-command.php:369
+#: src/Cli/SessionsCommand.php:382
 #, php-format
 msgid "Destroyed 1 session for %s."
 msgstr ""
 
-#: includes/cli/class-sessions-command.php:494
-msgid "This site uses a custom session storage backend. Session details are read from the default usermeta store, so this list may be empty or incomplete."
+#: src/Cli/SessionsCommand.php:473
+msgid "This site uses a custom session storage backend. Session details can only be read from the default usermeta store, so none are listed."
 msgstr ""
 
 #. translators: 1: submitted value, 2: setting key.
-#: includes/cli/class-settings-command.php:160
+#: src/Cli/SettingsCommand.php:191
 #, php-format
 msgid "\"%1$s\" is not a valid value for %2$s. Nothing was changed."
 msgstr ""
 
 #. translators: 1: setting key, 2: stored value.
-#: includes/cli/class-settings-command.php:172
+#: src/Cli/SettingsCommand.php:203
 #, php-format
 msgid "Updated %1$s to %2$s."
 msgstr ""
 
 #. translators: 1: submitted key, 2: comma-separated list of valid keys.
-#: includes/cli/class-settings-command.php:198
+#: src/Cli/SettingsCommand.php:231
 #, php-format
 msgid "Unknown setting \"%1$s\". Available settings: %2$s."
 msgstr ""
 
-#: includes/front/class-session-guard.php:281
+#: src/Modules/AutoLogout/IdleGuard.php:296
+msgid "Still there?"
+msgstr ""
+
+#. translators: %s: countdown, e.g. "1:59".
+#: src/Modules/AutoLogout/IdleGuard.php:298
+#, php-format
+msgid "You have been inactive for a while. For your security you will be signed out in %s."
+msgstr ""
+
+#: src/Modules/AutoLogout/IdleGuard.php:299
+msgid "Stay signed in"
+msgstr ""
+
+#: src/Modules/AutoLogout/IdleGuard.php:300
+msgid "Sign out now"
+msgstr ""
+
+#: src/Modules/AutoLogout/IdleGuard.php:301
+msgid "Signing you out…"
+msgstr ""
+
+#: src/Modules/AutoLogout/IdleGuard.php:321
+#: src/Modules/AutoLogout/IdleGuard.php:388
+msgid "You were signed out because your session was inactive."
+msgstr ""
+
+#: src/Modules/Lockout/Displaced.php:228
+msgid "You were signed out because your account signed in on another device."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:167
+msgid "Email me a link to sign out my other devices."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:252
+msgid "Check your email. The link in it signs you out of your other devices, so you can log in here."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:253
+msgid "We emailed you a link a few minutes ago. Check your email, or try again in a few minutes."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:254
+msgid "You were signed out of your other devices. Log in again."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:255
+msgid "That link has expired or was already used. Log in again to get a new one."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:256
+msgid "The email could not be sent. Ask the site’s administrator to sign you out of your other devices."
+msgstr ""
+
+#. translators: %s: Site title.
+#: src/Modules/Lockout/Unlock.php:339
+#, php-format
+msgid "[%s] Sign out of your other devices"
+msgstr ""
+
+#. translators: 1: Username, 2: Site title.
+#: src/Modules/Lockout/Unlock.php:345
+#, php-format
+msgid "Someone, hopefully you, tried to log in as %1$s on %2$s. The account is already signed in on as many devices as the site allows."
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:349
+msgid "To sign out of every device and log in again, open this link within 15 minutes:"
+msgstr ""
+
+#: src/Modules/Lockout/Unlock.php:351
+msgid "If this wasn’t you, ignore this email: nothing changes, and you should change your password."
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:102
+msgid "Your sessions"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:110
+msgid "Every device you are signed in on. Sign out any you don’t recognise, then change your password."
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:114
+msgid "Device"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:115
+msgid "Address"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:116
+msgid "Signed in"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:117
+msgid "Actions"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:154
+msgid "This device"
+msgstr ""
+
+#. translators: 1: Device, such as "Chrome on macOS". 2: How long ago it signed in.
+#: src/Modules/UserSessions/ProfileSessions.php:161
+#, php-format
+msgid "Sign out %1$s, signed in %2$s"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:162
+msgid "Sign out"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:185
+#: src/Modules/UserSessions/UsersList.php:111
+#: assets/src/admin/app/pages.js:119
+msgid "Sessions"
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:239
+msgid "That device was signed out."
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:240
+msgid "That device was already signed out."
+msgstr ""
+
+#: src/Modules/UserSessions/ProfileSessions.php:278
+msgid "Not signed in on any device."
+msgstr ""
+
+#. translators: %d: Number of devices.
+#: src/Modules/UserSessions/ProfileSessions.php:282
+#, php-format
+msgid "Signed in on %d device."
+msgid_plural "Signed in on %d devices."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: Time span, e.g. "5 minutes".
+#: src/Modules/UserSessions/ProfileSessions.php:296
+#: src/Modules/UserSessions/UsersList.php:166
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: src/Modules/UserSessions/UsersList.php:112
+msgid "Last login"
+msgstr ""
+
+#: src/Modules/UserSessions/UsersList.php:156
+msgid "No login recorded"
+msgstr ""
+
+#: src/Modules/UserSessions/UsersList.php:233
+#: src/Modules/UserSessions/UsersList.php:248
+#: assets/src/admin/pages/sessions.js:157
+msgid "Sign out everywhere"
+msgstr ""
+
+#. translators: %s: Number of users.
+#: src/Modules/UserSessions/UsersList.php:328
+#, php-format
+msgid "%s user was signed out of every device."
+msgid_plural "%s users were signed out of every device."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Rest/AddonsEndpoint.php:194
+#: src/Rest/AddonsEndpoint.php:238
+msgid "Licensing is not configured."
+msgstr ""
+
+#: src/Rest/SessionsEndpoint.php:99
+msgid "User id, email, or login."
+msgstr ""
+
+#: src/Rest/SessionsEndpoint.php:127
+msgid "Enter a user id, email, or username."
+msgstr ""
+
+#. translators: %s the identifier supplied in the request.
+#: src/Rest/SessionsEndpoint.php:139
+#, php-format
+msgid "No user found matching \"%s\"."
+msgstr ""
+
+#: src/Sessions/SessionGuard.php:614
 msgid "You've reached the maximum number of active logins for this account. Please log out from another device to continue."
 msgstr ""
 
-#: assets/src/common/error-boundary.js:71
+#. translators: 1: Browser name, 2: Operating system or device.
+#: src/Sessions/SessionStore.php:330
+#, php-format
+msgid "%1$s on %2$s"
+msgstr ""
+
+#: src/Sessions/SessionStore.php:337
+msgid "Unknown device"
+msgstr ""
+
+#: src/Settings/Settings.php:157
+msgid "Logout Oldest"
+msgstr ""
+
+#: src/Settings/Settings.php:158
+msgid "The new login ends the oldest session. Needs WordPress’s default session storage (user meta)."
+msgstr ""
+
+#: src/Settings/Settings.php:161
+msgid "Logout All"
+msgstr ""
+
+#: src/Settings/Settings.php:162
+msgid "The new login ends every other session."
+msgstr ""
+
+#: src/Settings/Settings.php:165
+msgid "Block New"
+msgstr ""
+
+#: src/Settings/Settings.php:166
+msgid "The new login is refused until an older session ends or expires."
+msgstr ""
+
+#: assets/src/admin/app/App.js:76
+msgid "Loggedin sections"
+msgstr ""
+
+#. translators: %s: Plugin version.
+#: assets/src/admin/app/App.js:81
+#, js-format
+msgid "On · %s"
+msgstr ""
+
+#: assets/src/admin/app/error-boundary.js:71
 msgid "Something went wrong while rendering this page."
 msgstr ""
 
-#: assets/src/common/footer.js:26
-msgid "Saving…"
-msgstr ""
-
-#: assets/src/common/footer.js:27
-msgid "Save Changes"
-msgstr ""
-
-#: assets/src/hooks/use-settings.js:81
-msgid "Settings saved."
-msgstr ""
-
-#: assets/src/hooks/use-settings.js:86
-msgid "Could not save settings."
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:58
-msgid "Buy Now"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:59
-msgid "Get it"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:74
-#: assets/src/modules/admin/components/addon-card.js:91
-msgid "Active"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:100
-msgid "Premium"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:101
-msgid "Free"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:112
-msgid "Licensed"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:113
-msgid "Unlicensed"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:139
-msgid "Manage License"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:140
-msgid "Activate License"
-msgstr ""
-
-#: assets/src/modules/admin/components/addon-card.js:157
-msgid "More details"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:53
-msgid "Need to log someone out without knowing who?"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:60
-msgid "Install the Active Sessions addon to browse every user with a live session, drill into each device they’re signed in from, and sign them out one at a time — or all at once."
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:69
-msgid "Get Active Sessions"
-msgstr ""
-
-#. translators: %s user login of the destroyed user.
-#: assets/src/modules/admin/components/force-logout-panel.js:128
+#. translators: %s: Plugin version. <a> links to the maker's website.
+#: assets/src/admin/app/footer.js:29
 #, js-format
-msgid "All sessions destroyed for \"%s\"."
+msgid "Loggedin %s · by <a>Foxe Labs</a>"
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:141
-msgid "Could not destroy sessions. Please try again."
+#: assets/src/admin/app/footer.js:34
+msgid "About Loggedin"
 msgstr ""
 
-#: assets/src/modules/admin/components/force-logout-panel.js:168
-msgid "All users have been logged out. Your own session stays active."
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:177
-msgid "Could not log out all users. Please try again."
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:190
-#: assets/src/modules/admin/components/force-logout-panel.js:222
-msgid "Force Logout"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:203
-msgid "User"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:204
-msgid "Enter a user id, email address, or username. All active sessions for that user will be destroyed."
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:221
-msgid "Logging out…"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:230
-msgid "Or log out every user on the site at once. Sessions are invalidated instantly — even on sites with thousands of users — and your own session stays active."
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:244
-msgid "Logging out everyone…"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:245
-#: assets/src/modules/admin/components/force-logout-panel.js:279
-msgid "Logout All Users"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:252
-msgid "Logout all users?"
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:257
-msgid "Every user will be logged out from all of their devices. Your own session will stay active."
-msgstr ""
-
-#: assets/src/modules/admin/components/force-logout-panel.js:269
-#: assets/src/modules/admin/components/license-modal.js:145
-msgid "Cancel"
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:81
-msgid "Enter a license key first."
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:104
-msgid "Something went wrong. Please try again."
-msgstr ""
-
-#. translators: %s addon title.
-#: assets/src/modules/admin/components/license-modal.js:112
-#, js-format
-msgid "Manage license — %s"
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:129
-msgid "License Key"
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:164
-msgid "Deactivating…"
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:165
-msgid "Activating…"
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:167
-msgid "Deactivate"
-msgstr ""
-
-#: assets/src/modules/admin/components/license-modal.js:168
-msgid "Activate"
-msgstr ""
-
-#: assets/src/modules/admin/index.js:63
-msgid "Loggedin – Session Manager"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/addons.js:67
-msgid "Refreshing…"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/addons.js:68
-msgid "Refresh Addons"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/addons.js:74
-msgid "No addons available."
-msgstr ""
-
-#: assets/src/modules/admin/tabs/index.js:38
-msgid "Settings"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/index.js:43
-msgid "Addons"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/index.js:49
-msgid "Support"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/settings.js:87
-msgid "General Settings"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/settings.js:93
-msgid "Active Logins Limit"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/settings.js:94
-msgid "Maximum number of simultaneous logins allowed per user account."
-msgstr ""
-
-#: assets/src/modules/admin/tabs/settings.js:116
-msgid "Login Logic"
-msgstr ""
-
-#: assets/src/modules/admin/tabs/support.js:25
+#: assets/src/admin/app/footer.js:37
+#: assets/src/admin/pages/help.js:88
 msgid "Documentation"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:30
-msgid "Support Forums"
+#: assets/src/admin/app/footer.js:41
+#: assets/src/admin/pages/help.js:112
+msgid "Support forum"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:35
-msgid "Priority Support"
+#. translators: <stars> holds five star symbols, hidden from screen readers; <sr> is read to screen readers only.
+#: assets/src/admin/app/footer.js:47
+msgid "Leave a <stars>★★★★★</stars><sr>five-star</sr> review"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:48
-msgid "About Us"
+#: assets/src/admin/app/pages.js:45
+msgid "Settings"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:53
-msgid "WP.org Profile"
+#: assets/src/admin/app/pages.js:46
+msgid "Manage"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:94
-msgid "Support Information"
+#: assets/src/admin/app/pages.js:47
+msgid "More"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:98
-msgid "Need help with the plugin? Reach out through any of the channels below."
+#: assets/src/admin/app/pages.js:73
+msgid "Needs fixing"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:107
-msgid "About the Author"
+#: assets/src/admin/app/pages.js:88
+msgid "Login limits"
 msgstr ""
 
-#: assets/src/modules/admin/tabs/support.js:111
-msgid "Hey, I'm Joel James, a Software Engineer based in Kerala, India. I'm passionate about open source and dedicate a lot of my time to contributing to it. If you like this plugin, I'd encourage you to check out my other WordPress plugins as well!"
+#: assets/src/admin/app/pages.js:97
+msgid "Lockout & recovery"
 msgstr ""
 
-#: assets/src/store/addons/actions.js:68
-msgid "Addons refreshed."
+#: assets/src/admin/app/pages.js:106
+msgid "Auto logout"
 msgstr ""
 
-#: assets/src/store/addons/actions.js:74
-msgid "Could not refresh the addons list."
+#: assets/src/admin/app/pages.js:126
+#: assets/src/admin/pages/addons.js:230
+msgid "Add-ons"
 msgstr ""
 
-#: assets/src/store/addons/actions.js:104
+#: assets/src/admin/app/pages.js:133
+msgid "Help"
+msgstr ""
+
+#: assets/src/admin/app/pages.js:162
+msgid "Active sessions"
+msgstr ""
+
+#: assets/src/admin/app/role-table.js:50
+msgid "Add a role"
+msgstr ""
+
+#. translators: %s: Role name.
+#: assets/src/admin/app/role-table.js:52
+#, js-format
+msgid "Remove the setting for %s"
+msgstr ""
+
+#: assets/src/admin/app/role-table.js:101
+msgid "Role"
+msgstr ""
+
+#. translators: 1: Page title, e.g. "Sessions", 2: The screen's own title from WordPress.
+#: assets/src/admin/app/use-route.js:116
+#, js-format
+msgid "%1$s ‹ %2$s"
+msgstr ""
+
+#. translators: %d: Number of settings with an error.
+#: assets/src/admin/app/use-save-bar.js:67
+#, js-format
+msgid "%d setting needs fixing"
+msgid_plural "%d settings need fixing"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: Number of changed settings.
+#: assets/src/admin/app/use-save-bar.js:81
+#, js-format
+msgid "%d unsaved change"
+msgid_plural "%d unsaved changes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/src/admin/app/use-save-bar.js:102
+msgid "Discard"
+msgstr ""
+
+#: assets/src/admin/app/use-save-bar.js:113
+msgid "Saved"
+msgstr ""
+
+#: assets/src/admin/app/use-save-bar.js:114
+msgid "Save"
+msgstr ""
+
+#: assets/src/admin/app/use-save-bar.js:122
+msgid "The settings could not be saved"
+msgstr ""
+
+#: assets/src/admin/app/use-save-bar.js:130
+msgid "Try again"
+msgstr ""
+
+#. translators: %s: Error message from the server.
+#: assets/src/admin/app/use-save-bar.js:136
+#, js-format
+msgid "%s Your changes are still here, so nothing is lost."
+msgstr ""
+
+#. translators: 1: Smallest number allowed, 2: Largest number allowed.
+#: assets/src/admin/app/validate.js:30
+#, js-format
+msgid "Enter a whole number from %1$d to %2$d."
+msgstr ""
+
+#. translators: %d: Smallest number allowed.
+#: assets/src/admin/app/validate.js:39
+#, js-format
+msgid "Enter a whole number, %d or more."
+msgstr ""
+
+#: assets/src/admin/app/validate.js:44
+msgid "Enter a whole number."
+msgstr ""
+
+#: assets/src/admin/app/validate.js:85
+msgid "Enter a full address, starting with https:// or http://."
+msgstr ""
+
+#: assets/src/admin/app/validate.js:90
+msgid "Use a page on this site."
+msgstr ""
+
+#: assets/src/admin/hooks/use-save.js:102
+msgid "Settings saved."
+msgstr ""
+
+#: assets/src/admin/hooks/use-save.js:108
+msgid "The server didn’t answer."
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:40
+msgid "Active"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:45
+msgid "Active · licensed"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:48
+msgid "Manage license"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:58
+msgid "Installed · no license"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:62
+#: assets/src/admin/pages/addons.js:197
+msgid "Activate license"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:74
+msgid "Premium · not installed"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:75
+msgid "Free · not installed"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:79
+msgid "Get add-on"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:115
+msgid "Enter the license key from your purchase email."
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:139
+msgid "Something went wrong. Try again."
+msgstr ""
+
+#. translators: %s: Add-on name.
+#: assets/src/admin/pages/addons.js:148
+#, js-format
+msgid "%s license"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:158
+msgid "The license was not changed"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:168
+msgid "This site is licensed. Deactivate the license to move it to another site."
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:175
+msgid "License key"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:186
+#: assets/src/admin/pages/sessions.js:212
+msgid "Cancel"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:196
+msgid "Deactivate license"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:240
+msgid "Refresh list"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:247
+msgid "Loading add-ons…"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:257
+msgid "No add-ons to show"
+msgstr ""
+
+#: assets/src/admin/pages/addons.js:259
+msgid "The list could not be loaded. Refresh it, or try again later."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:65
+msgid "Password changes"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:66
+msgid "What happens to a user’s other sessions when their password changes or is reset."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:72
+msgid "Sign out the other devices"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:73
+msgid "WordPress already refuses the old logins, but their sessions stay on record and count towards the login limit until they expire. Someone changing their own password stays signed in where they did it."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:103
+msgid "Idle logout"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:104
+msgid "Signs out a session nobody has used for a while. Checked on the server, so leaving the tab open doesn’t keep it alive."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:110
+msgid "Sign out idle sessions"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:111
+msgid "Only the device that went idle is signed out. Other devices keep their own sessions."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:123
+#: assets/src/admin/pages/auto-logout.js:169
+msgid "Sign out after"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:124
+#: assets/src/admin/pages/auto-logout.js:170
+msgid "minutes"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:125
+msgid "How long a session can go unused."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:138
+msgid "Warn first"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:139
+msgid "seconds"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:140
+msgid "A countdown lets someone in the middle of a form stay signed in. 0 signs out without warning. Never more than half the time above."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:155
+msgid "Timeouts per role"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:156
+msgid "Roles without their own timeout use the one above. When a user has several roles with one, the shortest applies."
+msgstr ""
+
+#. translators: %s: Role name.
+#: assets/src/admin/pages/auto-logout.js:173
+#, js-format
+msgid "Remove the timeout for %s"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:186
+msgid "Session length"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:187
+msgid "How long a login lasts, however busy it is. Sessions that already exist keep their old length until they end."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:193
+msgid "Login lasts"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:194
+msgid "hours"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:195
+msgid "0 keeps the WordPress default of 48 hours."
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:206
+msgid "With “Remember Me”"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:207
+msgid "days"
+msgstr ""
+
+#: assets/src/admin/pages/auto-logout.js:208
+msgid "0 keeps the WordPress default of 14 days."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:55
+msgid "WordPress"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:56
+msgid "PHP"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:71
+msgid "Versions copied."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:76
+msgid "Your browser blocked copying. Select the versions and copy them instead."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:90
+msgid "Setting up, every setting, the WP-CLI commands and the hooks reference."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:96
+msgid "Read the docs"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:101
+msgid "Get help"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:103
+msgid "Ask in the support forum on WordPress.org. Paste the versions below into your post."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:117
+msgid "Priority support"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:119
+msgid "For add-on customers. Email us directly."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:128
+msgid "Contact us"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:133
+msgid "Versions"
+msgstr ""
+
+#: assets/src/admin/pages/help.js:135
+msgid "What’s running on this site."
+msgstr ""
+
+#: assets/src/admin/pages/help.js:143
+msgid "Copy versions"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:45
+msgid "Administrators"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:46
+msgid "Keep the people who run the site from being locked out of it."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:53
+msgid "Users who can manage the site can sign in on any number of devices, and are never signed out by the limit."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:62
+msgid "Blocked logins"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:65
+msgid "What someone sees when Block New refuses their login, and how they can get back in."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:69
+msgid "Used with Block New. The login limit is set to sign out other devices instead, so nobody is blocked right now."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:76
+msgid "Message"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:77
+msgid "Leave empty to use the message shown. A link, bold and italics are allowed."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:86
+msgid "Let blocked users sign out their other devices"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:90
+msgid "The error offers to email a link. Opening it signs the account out everywhere, so the person can log in. Only shown after the right password."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:99
+msgid "Signed out by a newer login"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:100
+msgid "With Logout Oldest or Logout All, a new login signs out an older device. The login screen on that device says why."
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:107
+msgid "Send them to this page instead"
+msgstr ""
+
+#: assets/src/admin/pages/lockout.js:108
+msgid "Optional. Where that device goes on its next page view, such as your membership account page. It must be on this site."
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:53
+msgid "Login limit"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:54
+msgid "How many devices one account can be signed in on at the same time."
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:60
+msgid "Maximum active sessions"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:63
+msgid "session"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:64
+msgid "sessions"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:66
+msgid "Applies to every user. Each browser or device counts as one session."
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:78
+msgid "Limit Per Role"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:81
+msgid "Need a different limit for some roles?"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:90
+msgid "Limit Per User"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:93
+msgid "Need a different limit for one account?"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:101
+msgid "When the limit is reached"
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:102
+msgid "What happens when someone signs in on one device more than the limit allows."
+msgstr ""
+
+#: assets/src/admin/pages/login-limits.js:108
+msgid "New login"
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:57
+msgid "Active Sessions"
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:60
+msgid "Want to see who is signed in, or end one device at a time?"
+msgstr ""
+
+#. translators: %s: Username of the signed-out user.
+#: assets/src/admin/pages/sessions.js:89
+#, js-format
+msgid "%s was signed out of every device."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:98
+msgid "The user could not be signed out. Try again."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:120
+msgid "Every user was signed out. You are still signed in."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:129
+msgid "The users could not be signed out. Try again."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:143
+msgid "Sign out a user"
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:144
+msgid "Ends every session the user has. They have to log in again on each device."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:163
+msgid "User"
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:164
+msgid "User ID, email address or username."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:175
+#: assets/src/admin/pages/sessions.js:189
+#: assets/src/admin/pages/sessions.js:219
+msgid "Sign out all users"
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:176
+msgid "Ends every session on the site at once, however many users it has. You stay signed in."
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:196
+msgid "Sign out all users?"
+msgstr ""
+
+#: assets/src/admin/pages/sessions.js:202
+msgid "Every user is signed out of all of their devices. You stay signed in."
+msgstr ""
+
+#: assets/src/admin/store/addons/actions.js:73
+msgid "Add-ons list refreshed."
+msgstr ""
+
+#: assets/src/admin/store/addons/actions.js:79
+msgid "The add-ons list could not be refreshed. Try again."
+msgstr ""
+
+#: assets/src/admin/store/addons/actions.js:112
 msgid "License activated."
 msgstr ""
 
-#: assets/src/store/addons/actions.js:112
+#: assets/src/admin/store/addons/actions.js:120
 msgid "License activation failed. Please double-check the key and try again."
 msgstr ""
 
-#: assets/src/store/addons/actions.js:122
+#: assets/src/admin/store/addons/actions.js:130
 msgid "License activation failed. Please try again."
 msgstr ""
 
-#: assets/src/store/addons/actions.js:150
+#: assets/src/admin/store/addons/actions.js:158
 msgid "License deactivated."
 msgstr ""
 
-#: assets/src/store/addons/actions.js:158
-#: assets/src/store/addons/actions.js:168
+#: assets/src/admin/store/addons/actions.js:166
+#: assets/src/admin/store/addons/actions.js:176
 msgid "License deactivation failed. Please try again."
 msgstr ""
 
-#: assets/src/store/addons/resolvers.js:35
-msgid "Failed to load addons."
+#: assets/src/admin/store/addons/resolvers.js:37
+msgid "The add-ons list could not be loaded."
+msgstr ""
+
+#: assets/src/admin/ui/layout.js:159
+msgid "Section"
+msgstr ""
+
+#. translators: 1: Page title, 2: "Needs fixing", or a count such as comments waiting for review.
+#: assets/src/admin/ui/layout.js:194
+#, js-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: assets/src/admin/ui/layout.js:258
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: assets/src/admin/ui/layout.js:460
+msgid "Dismiss"
 msgstr ""

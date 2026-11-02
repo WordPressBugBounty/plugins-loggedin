@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'FoxeLabs\\Reviews\\' => array($vendorDir . '/foxelabs/wp-review-notice/src'),
+    'FoxeLabs\\Loggedin\\' => array($baseDir . '/src'),
     'FoxeLabs\\Freemius\\' => array($vendorDir . '/foxelabs/wp-freemius-client/src'),
 );
